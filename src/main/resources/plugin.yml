@@ -1,0 +1,18 @@
+name: ${project.artifactId}
+description: ${project.description}
+main: ${project.groupId}.${project.artifactId}.${project.artifactId}
+version: ${project.version}-git-${env.GIT_COMMIT}
+author: 喵♂呜
+website: ${ciManagement.url}
+commands:
+  ${project.artifactId}:
+    description: ${project.artifactId} - ${project.description}
+    aliases:
+    - mb
+    usage: §b使用/${project.artifactId} help 查看帮助!
+    permission: ${project.artifactId}.reload
+    permission-message: §c你没有 <permission> 的权限来执行此命令!
+permissions:
+  ${project.artifactId}.reload:
+    description: 重新载入插件!
+    default: op
