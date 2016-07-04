@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 
 import cn.citycraft.PluginHelper.callback.CallBackReturn;
 import cn.citycraft.PluginHelper.pluginapi.PluginAPI;
+import pw.yumc.MiaoBoard.scoreboard.ScoreBoardManager;
 
 /**
  *
@@ -14,7 +15,7 @@ public class TitleUpdater extends CallBackReturn.One<Player, String> {
 
     @Override
     public String run(final Player param) {
-        return PluginAPI.PlaceholderAPI(param, param.getName());
+        return PluginAPI.PlaceholderAPI(param, ScoreBoardManager.bm.title);
     }
 
 }

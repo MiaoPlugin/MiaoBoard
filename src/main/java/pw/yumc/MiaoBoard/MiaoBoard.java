@@ -4,7 +4,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import cn.citycraft.PluginHelper.commands.HandlerCommand;
 import cn.citycraft.PluginHelper.commands.HandlerCommands;
-import cn.citycraft.PluginHelper.config.FileConfig;
+import cn.citycraft.PluginHelper.commands.InvokeCommandEvent;
+import cn.citycraft.PluginHelper.commands.InvokeSubCommand;
+import pw.yumc.MiaoBoard.config.MiaoBoardConfig;
+import pw.yumc.MiaoBoard.listener.PlayerListener;
+import pw.yumc.MiaoBoard.scoreboard.ScoreBoardManager;
 
 /**
  * 喵式记分板主类
@@ -13,25 +17,27 @@ import cn.citycraft.PluginHelper.config.FileConfig;
  * @author 喵♂呜
  */
 public class MiaoBoard extends JavaPlugin implements HandlerCommands {
-    private FileConfig config;
 
     @Override
-    public FileConfig getConfig() {
-        return config;
+    public void onDisable() {
+        ScoreBoardManager.status = false;
     }
 
     @Override
     public void onEnable() {
-
+        new InvokeSubCommand(this, "mb").registerCommands(this);
+        new ScoreBoardManager().start();
+        new PlayerListener();
     }
 
     @Override
     public void onLoad() {
-        config = new FileConfig(this);
+        new MiaoBoardConfig();
     }
 
     @HandlerCommand(name = "reload", description = "重新载入配置文件")
-    public void reload() {
-        config.reload();
+    public void reload(final InvokeCommandEvent e) {
+        MiaoBoardConfig.reload();
+        e.getSender().sendMessage("§a配置重载完毕!");
     }
 }

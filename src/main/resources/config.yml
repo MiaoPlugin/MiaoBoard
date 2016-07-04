@@ -1,3 +1,12 @@
 #关闭记分板的世界
 DisableWorld:
 - WorldName
+#记分板
+Boards:
+  #默认记分板
+  default:
+    title: 标题
+    permission: mb.default
+    lines:
+    - '这是第一行'
+    - ''
