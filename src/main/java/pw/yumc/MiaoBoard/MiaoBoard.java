@@ -21,6 +21,11 @@ public class MiaoBoard extends JavaPlugin implements HandlerCommands {
     }
 
     @Override
+    public void onEnable() {
+
+    }
+
+    @Override
     public void onLoad() {
         config = new FileConfig(this);
     }
