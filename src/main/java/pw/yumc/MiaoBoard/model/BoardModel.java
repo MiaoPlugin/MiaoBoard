@@ -5,18 +5,19 @@ import java.util.List;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-public class BoardModel {
+import cn.citycraft.PluginHelper.config.InjectConfigurationSection;
+
+public class BoardModel extends InjectConfigurationSection {
     public String title;
     public String permission;
-    public List<String> lines = new LinkedList<>();;
+    public List<String> lines = new LinkedList<>();
 
+    /**
+     * 自动载入配置
+     * 
+     * @param config
+     */
     public BoardModel(final ConfigurationSection config) {
-        this(config.getString("title"), config.getString("permission"), config.getStringList("lines"));
-    }
-
-    public BoardModel(final String title, final String permission, final List<String> lines) {
-        this.title = title;
-        this.permission = permission;
-        this.lines = lines;
+        super(config);
     }
 }
