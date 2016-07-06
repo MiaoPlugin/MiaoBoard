@@ -27,17 +27,18 @@ public class MiaoBoard extends JavaPlugin implements HandlerCommands {
     public void onEnable() {
         new InvokeSubCommand(this, "mb").registerCommands(this);
         new ScoreBoardManager().start();
+        ScoreBoardManager.load();
         new PlayerListener();
     }
 
     @Override
     public void onLoad() {
-        new MiaoBoardConfig();
+        MiaoBoardConfig.i();
     }
 
     @HandlerCommand(name = "reload", description = "重新载入配置文件")
     public void reload(final InvokeCommandEvent e) {
-        MiaoBoardConfig.reload();
+        ScoreBoardManager.reload();
         e.getSender().sendMessage("§a配置重载完毕!");
     }
 }

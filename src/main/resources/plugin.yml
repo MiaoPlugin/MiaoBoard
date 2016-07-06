@@ -10,9 +10,12 @@ commands:
     aliases:
     - mb
     usage: §b使用/${project.artifactId} help 查看帮助!
-    permission: ${project.artifactId}.reload
+    permission: mb.reload
     permission-message: §c你没有 <permission> 的权限来执行此命令!
 permissions:
-  ${project.artifactId}.reload:
+  mb.reload:
     description: 重新载入插件!
     default: op
+  mb.default:
+    description: 默认记分板权限!
+    default: true

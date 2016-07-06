@@ -1,3 +1,8 @@
+#配置文件版本号
+Version: 1.0
+
+#更新时间(单位: Tick)
+UpdateTime: 10
 #关闭记分板的世界
 DisableWorld:
 - WorldName
@@ -5,8 +10,12 @@ DisableWorld:
 Boards:
   #默认记分板
   default:
-    title: 标题
+    title: '玩家信息'
     permission: mb.default
     lines:
-    - '这是第一行'
-    - ''
+    - '&6玩家名称: &a%player_displayname%'
+    - '&7------------------------------'
+    - '&6您所在的位置: &b%player_world% &a%player_x%,%player_y%,%player_z%'
+    - '&7------------------------------'
+    - '&6服务器使用内存: &a%server_ram_used%/%server_ram_total%'
+    

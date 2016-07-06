@@ -1,33 +1,31 @@
 package pw.yumc.MiaoBoard.config;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import cn.citycraft.PluginHelper.config.ConfigNode;
 import cn.citycraft.PluginHelper.config.FileConfig;
+import cn.citycraft.PluginHelper.config.InjectConfig;
 import cn.citycraft.PluginHelper.kit.PKit;
-import pw.yumc.MiaoBoard.model.BoardModel;
-import pw.yumc.MiaoBoard.scoreboard.ScoreBoardManager;
+import pw.yumc.MiaoBoard.MiaoBoard;
 
-public class MiaoBoardConfig {
-    public static FileConfig config;
-
-    @ConfigNode
-    public static List<String> DisableWorld;
+public class MiaoBoardConfig extends InjectConfig<MiaoBoard> {
+    public static Integer UpdateTime;
+    public static List<String> DisableWorld = new ArrayList<>();
+    public transient static MiaoBoardConfig instance = new MiaoBoardConfig();;
 
     public MiaoBoardConfig() {
-        config = new FileConfig(PKit.i());
+        super((MiaoBoard) PKit.i());
     }
 
-    public static BoardModel getModel(final String path) {
-        return new BoardModel(config.getConfigurationSection(getRoot(path)));
+    public static MiaoBoardConfig i() {
+        return instance;
     }
 
-    public static String getRoot(final String path) {
-        return "Boards." + path;
+    public static void reInject() {
+        instance.reload();
     }
 
-    public static void reload() {
-        config.reload();
-        ScoreBoardManager.bm = getModel("default");
+    public FileConfig getConfig() {
+        return config;
     }
 }

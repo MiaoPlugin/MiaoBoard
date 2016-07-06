@@ -1,6 +1,7 @@
 package pw.yumc.MiaoBoard.listener;
 
 import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -20,6 +21,7 @@ public class PlayerListener implements Listener {
         Bukkit.getPluginManager().registerEvents(this, PKit.i());
     }
 
+    @EventHandler
     public void onPlayerChangeWorld(final PlayerChangedWorldEvent e) {
         if (MiaoBoardConfig.DisableWorld.contains(e.getPlayer().getWorld().getName())) {
             ScoreBoardManager.remove(e.getPlayer());
@@ -28,12 +30,14 @@ public class PlayerListener implements Listener {
         }
     }
 
+    @EventHandler
     public void onPlayerJoin(final PlayerJoinEvent e) {
         if (!MiaoBoardConfig.DisableWorld.contains(e.getPlayer().getWorld().getName())) {
             ScoreBoardManager.add(e.getPlayer());
         }
     }
 
+    @EventHandler
     public void onPlayerQuit(final PlayerQuitEvent e) {
         ScoreBoardManager.remove(e.getPlayer());
     }
