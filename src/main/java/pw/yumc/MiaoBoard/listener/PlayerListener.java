@@ -24,21 +24,21 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerChangeWorld(final PlayerChangedWorldEvent e) {
         if (MiaoBoardConfig.DisableWorld.contains(e.getPlayer().getWorld().getName())) {
-            ScoreBoardManager.remove(e.getPlayer());
+            ScoreBoardManager.getSidebarBoard().removeTarget(e.getPlayer());
         } else {
-            ScoreBoardManager.add(e.getPlayer());
+            ScoreBoardManager.getSidebarBoard().addTarget(e.getPlayer());
         }
     }
 
     @EventHandler
     public void onPlayerJoin(final PlayerJoinEvent e) {
         if (!MiaoBoardConfig.DisableWorld.contains(e.getPlayer().getWorld().getName())) {
-            ScoreBoardManager.add(e.getPlayer());
+            ScoreBoardManager.getSidebarBoard().addTarget(e.getPlayer());
         }
     }
 
     @EventHandler
     public void onPlayerQuit(final PlayerQuitEvent e) {
-        ScoreBoardManager.remove(e.getPlayer());
+        ScoreBoardManager.getSidebarBoard().removeTarget(e.getPlayer());
     }
 }
