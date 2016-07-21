@@ -44,7 +44,7 @@ public class MiaoBoard extends JavaPlugin implements HandlerCommands {
         ScoreBoardManager.load();
     }
 
-    @HandlerCommand(name = "reload", description = "重新载入配置文件")
+    @HandlerCommand(name = "reload", permission = "mb.reload", description = "重新载入配置文件")
     public void reload(final InvokeCommandEvent e) {
         ScoreBoardManager.reload();
         e.getSender().sendMessage("§a配置重载完毕!");

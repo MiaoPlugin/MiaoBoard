@@ -10,7 +10,8 @@ import pw.yumc.MiaoBoard.model.BoardModel;
 import pw.yumc.MiaoBoard.scoreboard.ScoreBoardManager;
 
 /**
- *
+ * 记分板标题更新类
+ * 
  * @since 2016年7月4日 下午4:47:17
  * @author 喵♂呜
  */

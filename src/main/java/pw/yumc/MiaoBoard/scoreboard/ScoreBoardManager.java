@@ -17,7 +17,8 @@ import pw.yumc.MiaoBoard.scoreboard.updater.BodyUpdater;
 import pw.yumc.MiaoBoard.scoreboard.updater.TitleUpdater;
 
 /**
- *
+ * 记分板管理类
+ * 
  * @since 2016年6月24日 下午3:31:31
  * @author 喵♂呜
  */

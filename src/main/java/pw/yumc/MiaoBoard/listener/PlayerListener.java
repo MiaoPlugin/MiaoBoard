@@ -12,7 +12,8 @@ import pw.yumc.MiaoBoard.config.MiaoBoardConfig;
 import pw.yumc.MiaoBoard.scoreboard.ScoreBoardManager;
 
 /**
- *
+ * 玩家监听
+ * 
  * @since 2016年6月24日 下午3:29:39
  * @author 喵♂呜
  */
