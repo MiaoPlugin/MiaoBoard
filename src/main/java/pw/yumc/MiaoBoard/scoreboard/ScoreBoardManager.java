@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 
+import cn.citycraft.PluginHelper.bukkit.P;
 import cn.citycraft.PluginHelper.config.FileConfig;
-import cn.citycraft.PluginHelper.kit.PKit;
 import cn.citycraft.PluginHelper.scoreboard.BoardUpdateFunction;
 import cn.citycraft.PluginHelper.scoreboard.Condition;
 import cn.citycraft.PluginHelper.scoreboard.SidebarBoard;
@@ -18,13 +18,13 @@ import pw.yumc.MiaoBoard.scoreboard.updater.TitleUpdater;
 
 /**
  * 记分板管理类
- * 
+ *
  * @since 2016年6月24日 下午3:31:31
  * @author 喵♂呜
  */
 public class ScoreBoardManager {
     public static Status cot = new Status();
-    public static SidebarBoard sbd = new SidebarBoard(PKit.i(), new BoardUpdateFunction(new TitleUpdater(), new BodyUpdater()));
+    public static SidebarBoard sbd = new SidebarBoard(P.instance, new BoardUpdateFunction(new TitleUpdater(), new BodyUpdater()));
     public static FileConfig config = MiaoBoardConfig.i().getConfig();;
     public static List<BoardModel> bms = new ArrayList<>();
 
