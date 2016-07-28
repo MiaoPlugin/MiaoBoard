@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 
-import cn.citycraft.PluginHelper.bukkit.P;
 import cn.citycraft.PluginHelper.config.FileConfig;
+import cn.citycraft.PluginHelper.kit.P;
 import cn.citycraft.PluginHelper.scoreboard.BoardUpdateFunction;
 import cn.citycraft.PluginHelper.scoreboard.Condition;
 import cn.citycraft.PluginHelper.scoreboard.SidebarBoard;

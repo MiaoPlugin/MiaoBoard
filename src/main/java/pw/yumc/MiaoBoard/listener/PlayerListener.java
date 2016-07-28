@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import cn.citycraft.PluginHelper.bukkit.P;
+import cn.citycraft.PluginHelper.kit.P;
 import pw.yumc.MiaoBoard.config.MiaoBoardConfig;
 import pw.yumc.MiaoBoard.scoreboard.ScoreBoardManager;
 
