@@ -12,6 +12,7 @@ import cn.citycraft.PluginHelper.kit.PluginKit;
 import cn.citycraft.PluginHelper.utils.VersionChecker;
 import pw.yumc.MiaoBoard.listener.PlayerListener;
 import pw.yumc.MiaoBoard.scoreboard.ScoreBoardManager;
+import pw.yumc.YumCore.update.SubscribeTask;
 
 /**
  * 喵式记分板主类
@@ -37,6 +38,8 @@ public class MiaoBoard extends JavaPlugin implements HandlerCommands {
             PluginKit.disable("DON'T TRY TO CHANGE THE URL...");
             throw new IllegalAccessError("Access Check Failed...");
         }
+        SubscribeTask.navite = true;
+        new SubscribeTask(true);
     }
 
     @Override

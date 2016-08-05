@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pw.yumc</groupId>
 	<artifactId>MiaoBoard</artifactId>
-	<version>1.1</version>
+	<version>1.2</version>
 	<name>MiaoBoard</name>
 	<build>
 		<finalName>${project.name}</finalName>
@@ -31,10 +31,15 @@
 					<minimizeJar>true</minimizeJar>
 					<artifactSet>
 						<includes>
+							<include>pw.yumc:YumCore</include>
 							<include>cn.citycraft:PluginHelper</include>
 						</includes>
 					</artifactSet>
 					<relocations>
+						<relocation>
+							<pattern>pw.yumc.YumCore</pattern>
+							<shadedPattern>${project.groupId}.${project.artifactId}</shadedPattern>
+						</relocation>
 						<relocation>
 							<pattern>cn.citycraft.PluginHelper</pattern>
 							<shadedPattern>${project.groupId}.${project.artifactId}</shadedPattern>
@@ -64,6 +69,10 @@
 	</properties>
 	<repositories>
 		<repository>
+			<id>spigot-repo</id>
+			<url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+		</repository>
+		<repository>
 			<id>yumc-repo</id>
 			<url>http://repo.yumc.pw/content/groups/public/</url>
 		</repository>
@@ -80,11 +89,17 @@
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
 			<type>jar</type>
-			<version>1.9-R0.1-SNAPSHOT</version>
+			<version>1.10.2-R0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>cn.citycraft</groupId>
 			<artifactId>PluginHelper</artifactId>
+			<type>jar</type>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>pw.yumc</groupId>
+			<artifactId>YumCore</artifactId>
 			<type>jar</type>
 			<version>1.0</version>
 		</dependency>
