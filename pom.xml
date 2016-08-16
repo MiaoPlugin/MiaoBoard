@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pw.yumc</groupId>
 	<artifactId>MiaoBoard</artifactId>
-	<version>1.2</version>
+	<version>1.4</version>
 	<name>MiaoBoard</name>
 	<build>
 		<finalName>${project.name}</finalName>
@@ -52,6 +52,27 @@
 						<goals>
 							<goal>shade</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.github.wvengen</groupId>
+				<artifactId>proguard-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>proguard</goal>
+						</goals>
+						<configuration>
+							<options>
+								<option>-repackageclasses nul.${project.groupId}.for.${project.artifactId}.class</option>
+								<option>-keep class ${project.groupId}.${project.artifactId}.${project.artifactId}</option>
+							</options>
+							<libs>
+								<lib>${java.home}/lib/rt.jar</lib>
+							</libs>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
