@@ -5,8 +5,8 @@ import java.util.Iterator;
 import org.bukkit.entity.Player;
 
 import cn.citycraft.PluginHelper.callback.CallBackReturn;
-import cn.citycraft.PluginHelper.kit.StrKit;
-import cn.citycraft.PluginHelper.pluginapi.PluginAPI;
+import pw.yumc.MiaoBoard.misc.Checker;
+import pw.yumc.MiaoBoard.misc.Replace;
 import pw.yumc.MiaoBoard.model.BoardModel;
 import pw.yumc.MiaoBoard.scoreboard.ScoreBoardManager;
 
@@ -23,8 +23,8 @@ public class TitleUpdater extends CallBackReturn.One<Player, String> {
         final Iterator<BoardModel> iterator = ScoreBoardManager.getModels().iterator();
         while (iterator.hasNext()) {
             final BoardModel bmodel = iterator.next();
-            if (param.hasPermission(bmodel.permission)) {
-                return StrKit.substring(PluginAPI.PlaceholderAPI(param, bmodel.title), 0, 40);
+            if (Checker.$(param, bmodel)) {
+                return Replace.$(param, bmodel.title);
             }
         }
         return "";

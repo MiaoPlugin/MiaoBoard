@@ -6,15 +6,15 @@ import java.util.List;
 import org.bukkit.entity.Player;
 
 import cn.citycraft.PluginHelper.config.FileConfig;
-import cn.citycraft.PluginHelper.kit.P;
 import cn.citycraft.PluginHelper.scoreboard.BoardUpdateFunction;
 import cn.citycraft.PluginHelper.scoreboard.Condition;
 import cn.citycraft.PluginHelper.scoreboard.SidebarBoard;
-import cn.citycraft.PluginHelper.utils.CompatibleUtil;
 import pw.yumc.MiaoBoard.config.MiaoBoardConfig;
 import pw.yumc.MiaoBoard.model.BoardModel;
 import pw.yumc.MiaoBoard.scoreboard.updater.BodyUpdater;
 import pw.yumc.MiaoBoard.scoreboard.updater.TitleUpdater;
+import pw.yumc.YumCore.bukkit.P;
+import pw.yumc.YumCore.bukkit.compatible.C;
 
 /**
  * 记分板管理类
@@ -52,7 +52,7 @@ public class ScoreBoardManager {
 
     public static void start() {
         sbd.update(cot, MiaoBoardConfig.UpdateTime);
-        for (final Player player : CompatibleUtil.getOnlinePlayers()) {
+        for (final Player player : C.Player.getOnlinePlayers()) {
             sbd.addTarget(player);
         }
     }
