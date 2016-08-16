@@ -1,5 +1,6 @@
 package pw.yumc.MiaoBoard.misc;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -77,6 +78,10 @@ public class Replace {
             switch (key) {
             case "version":
                 return P.getDescription().getVersion();
+            case "name":
+                return P.getName();
+            case "author":
+                return Arrays.toString(P.getDescription().getAuthors().toArray());
             default:
                 return "";
             }

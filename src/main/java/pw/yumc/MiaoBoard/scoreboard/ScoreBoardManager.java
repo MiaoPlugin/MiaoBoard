@@ -1,6 +1,8 @@
 package pw.yumc.MiaoBoard.scoreboard;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.bukkit.entity.Player;
@@ -41,6 +43,7 @@ public class ScoreBoardManager {
         for (final String bmn : config.getConfigurationSection("Boards").getKeys(false)) {
             bms.add(new BoardModel(config.getConfigurationSection("Boards." + bmn)));
         }
+        Collections.sort(bms, new BoardComparator());
     }
 
     public static void reload() {
@@ -57,7 +60,14 @@ public class ScoreBoardManager {
         }
     }
 
-    public static class Status implements Condition {
+    private static class BoardComparator implements Comparator<BoardModel> {
+        @Override
+        public int compare(final BoardModel o1, final BoardModel o2) {
+            return o2.index > o1.index ? 1 : 0;
+        }
+    }
+
+    private static class Status implements Condition {
         private boolean status = true;
 
         @Override
