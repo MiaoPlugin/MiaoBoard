@@ -29,20 +29,22 @@ public class Replace {
         public static String $(final Player player, String text) {
             final Matcher m = PLACEHOLDER_PATTERN.matcher(text);
             while (m.find()) {
-                final String k = m.group(1);
-                if (k.contains("_")) {
-                    final String[] ka = k.split("_", 2);
+                final String format = m.group(1);
+                if (format.contains("_")) {
+                    final String[] ka = format.split("_", 2);
+                    String value = format;
                     switch (ka[0]) {
                     case "player":
-                        text = player(player, ka[1]);
+                        value = player(player, ka[1]);
                         break;
                     case "server":
-                        text = server(player, ka[1]);
+                        value = server(player, ka[1]);
                         break;
                     case "plugin":
-                        text = plugin(player, ka[1]);
+                        value = plugin(player, ka[1]);
                         break;
                     }
+                    text = text.replace("%" + format + "%", Matcher.quoteReplacement(value));
                 }
             }
             return text;
