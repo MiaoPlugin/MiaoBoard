@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import cn.citycraft.PluginHelper.kit.StrKit;
 import cn.citycraft.PluginHelper.pluginapi.PluginAPI;
+import pw.yumc.YumCore.bukkit.P;
 import pw.yumc.YumCore.bukkit.compatible.C;
 
 public class Replace {
@@ -38,13 +39,16 @@ public class Replace {
                     case "server":
                         text = server(player, ka[1]);
                         break;
+                    case "plugin":
+                        text = plugin(player, ka[1]);
+                        break;
                     }
                 }
             }
             return text;
         }
 
-        public static String player(final Player player, final String key) {
+        private static String player(final Player player, final String key) {
             switch (key) {
             case "x":
                 return String.valueOf(player.getLocation().getBlockX());
@@ -62,6 +66,15 @@ public class Replace {
                 return String.valueOf(player.getHealth());
             case "max_health":
                 return String.valueOf(player.getMaxHealth());
+            default:
+                return "";
+            }
+        }
+
+        private static String plugin(final Player player, final String key) {
+            switch (key) {
+            case "version":
+                return P.getDescription().getVersion();
             default:
                 return "";
             }

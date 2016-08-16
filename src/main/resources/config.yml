@@ -13,6 +13,8 @@ Boards:
     title: '记分板简介'
     permission: mb.default
     lines:
+    - '&6插件版本: &b%plugin_version%'
+    - '&7------------------------------'
     - '&6玩家名称: &a%player_displayname%'
     - '&7------------------------------'
     - '&6您所在的位置: &b%player_world% &a%player_x%,%player_y%,%player_z%'
