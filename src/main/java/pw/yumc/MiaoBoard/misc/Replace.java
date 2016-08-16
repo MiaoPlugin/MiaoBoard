@@ -20,7 +20,7 @@ public class Replace {
     }
 
     private static String s(final String text) {
-        return StrKit.substring(text, 0, 40);
+        return StrKit.substring(text, 0, 38);
     }
 
     static class SimpleRelpace {

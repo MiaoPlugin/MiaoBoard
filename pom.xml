@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pw.yumc</groupId>
 	<artifactId>MiaoBoard</artifactId>
-	<version>1.4.2</version>
+	<version>1.4.3</version>
 	<name>MiaoBoard</name>
 	<build>
 		<finalName>${project.name}</finalName>
