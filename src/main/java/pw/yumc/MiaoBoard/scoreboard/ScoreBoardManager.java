@@ -1,8 +1,8 @@
 package pw.yumc.MiaoBoard.scoreboard;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.bukkit.entity.Player;
@@ -28,7 +28,7 @@ public class ScoreBoardManager {
     public static Status cot = new Status();
     public static SidebarBoard sbd = new SidebarBoard(P.instance, new BoardUpdateFunction(new TitleUpdater(), new BodyUpdater()));
     public static FileConfig config = MiaoBoardConfig.i().getConfig();;
-    public static List<BoardModel> bms = new ArrayList<>();
+    public static List<BoardModel> bms = new LinkedList<>();
 
     public static List<BoardModel> getModels() {
         return bms;
@@ -41,7 +41,7 @@ public class ScoreBoardManager {
     public static void load() {
         bms.clear();
         for (final String bmn : config.getConfigurationSection("Boards").getKeys(false)) {
-            bms.add(new BoardModel(config.getConfigurationSection("Boards." + bmn)));
+            bms.add(new BoardModel(config.getConfigurationSection("Boards." + bmn)).setName(bmn));
         }
         Collections.sort(bms, new BoardComparator());
     }
@@ -54,7 +54,7 @@ public class ScoreBoardManager {
     }
 
     public static void start() {
-        sbd.update(cot, MiaoBoardConfig.UpdateTime);
+        sbd.update(cot.set(true), MiaoBoardConfig.UpdateTime);
         for (final Player player : C.Player.getOnlinePlayers()) {
             sbd.addTarget(player);
         }
@@ -63,7 +63,7 @@ public class ScoreBoardManager {
     private static class BoardComparator implements Comparator<BoardModel> {
         @Override
         public int compare(final BoardModel o1, final BoardModel o2) {
-            return o2.index > o1.index ? 1 : 0;
+            return o1.index.compareTo(o2.index);
         }
     }
 

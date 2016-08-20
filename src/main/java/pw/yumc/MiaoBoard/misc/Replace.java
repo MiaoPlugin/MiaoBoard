@@ -1,6 +1,9 @@
 package pw.yumc.MiaoBoard.misc;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +29,8 @@ public class Replace {
 
     static class SimpleRelpace {
         private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("[%]([^%]+)[%]");
+        private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        private static final String EMPTY = "";
 
         public static String $(final Player player, String text) {
             final Matcher m = PLACEHOLDER_PATTERN.matcher(text);
@@ -44,6 +49,9 @@ public class Replace {
                     case "plugin":
                         value = plugin(player, ka[1]);
                         break;
+                    case "time":
+                        value = time(player, ka[1]);
+                        break;
                     }
                     text = text.replace("%" + format + "%", Matcher.quoteReplacement(value));
                 }
@@ -59,6 +67,10 @@ public class Replace {
                 return String.valueOf(player.getLocation().getBlockY());
             case "z":
                 return String.valueOf(player.getLocation().getBlockZ());
+            case "yaw":
+                return String.valueOf(Math.round(player.getLocation().getYaw() * 100) / 100);
+            case "pitch":
+                return String.valueOf(Math.round(player.getLocation().getPitch() * 100) / 100);
             case "world":
                 return player.getWorld().getName();
             case "name":
@@ -70,7 +82,7 @@ public class Replace {
             case "max_health":
                 return String.valueOf(player.getMaxHealth());
             default:
-                return "";
+                return EMPTY;
             }
         }
 
@@ -83,7 +95,7 @@ public class Replace {
             case "author":
                 return Arrays.toString(P.getDescription().getAuthors().toArray());
             default:
-                return "";
+                return EMPTY;
             }
         }
 
@@ -101,8 +113,39 @@ public class Replace {
             case "ram_max":
                 return String.valueOf(runtime.maxMemory() / 1048576L);
             default:
-                return "";
+                return EMPTY;
             }
+        }
+
+        private static String time(final Player player, final String key) {
+            final Date date = new Date();
+            if (key.startsWith("left") && key.contains("_")) {
+                final String time = key.split("_")[1].replace("`", " ");
+                String value = "解析错误";
+                try {
+                    final long left = df.parse(time).getTime() - System.currentTimeMillis();
+                    value = String.valueOf(left / 1000);
+                } catch (final ParseException e) {
+                }
+                return value;
+            }
+            switch (key) {
+            case "now":
+                return df.format(date);
+            case "year":
+                return String.valueOf(date.getYear() + 1900);
+            case "month":
+                return String.valueOf(date.getMonth() + 1);
+            case "day":
+                return String.valueOf(date.getDate());
+            case "hour":
+                return String.valueOf(date.getHours() + 1);
+            case "minute":
+                return String.valueOf(date.getMinutes());
+            case "second":
+                return String.valueOf(date.getSeconds());
+            }
+            return EMPTY;
         }
     }
 }

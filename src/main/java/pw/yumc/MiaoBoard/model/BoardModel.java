@@ -1,5 +1,6 @@
 package pw.yumc.MiaoBoard.model;
 
+import java.util.Date;
 import java.util.List;
 
 import org.bukkit.configuration.ConfigurationSection;
@@ -13,7 +14,10 @@ import cn.citycraft.PluginHelper.config.InjectConfigurationSection;
  * @author 喵♂呜
  */
 public class BoardModel extends InjectConfigurationSection {
-    public int index;
+    public transient String name;
+    public Integer index;
+    public Date time_start;
+    public Date time_end;
     public String title;
     public String permission;
     public List<String> lines;
@@ -25,5 +29,17 @@ public class BoardModel extends InjectConfigurationSection {
      */
     public BoardModel(final ConfigurationSection config) {
         super(config);
+    }
+
+    /**
+     * 设置模型名称
+     *
+     * @param name
+     *            名称
+     * @return {@link BoardModel}
+     */
+    public BoardModel setName(final String name) {
+        this.name = name;
+        return this;
     }
 }
