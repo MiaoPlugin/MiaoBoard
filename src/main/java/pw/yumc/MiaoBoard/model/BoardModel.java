@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import cn.citycraft.PluginHelper.config.InjectConfigurationSection;
+import pw.yumc.YumCore.config.ConfigNode;
+import pw.yumc.YumCore.config.InjectConfigurationSection;
+import pw.yumc.YumCore.config.Nullable;
 
 /**
  * 记分板数据模型类
@@ -16,7 +18,11 @@ import cn.citycraft.PluginHelper.config.InjectConfigurationSection;
 public class BoardModel extends InjectConfigurationSection {
     public transient String name;
     public Integer index;
+    @Nullable
+    @ConfigNode("time.start")
     public Date time_start;
+    @Nullable
+    @ConfigNode("time.end")
     public Date time_end;
     public String title;
     public String permission;

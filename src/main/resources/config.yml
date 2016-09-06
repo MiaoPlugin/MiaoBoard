@@ -1,5 +1,5 @@
 #配置文件版本号
-Version: 1.1
+Version: 2.0
 
 #更新时间(单位: Tick)
 UpdateTime: 10
@@ -17,25 +17,30 @@ Boards:
       start: '2016-01-01 00:00:00'
       end: '2020-01-01 00:00:00'
     #记分板标题
-    title: '喵式记分板简介'
+    title: '玩家信息'
     #记分板权限
     permission: mb.default
-    #记分板内容
-    #注意 不得超过38个字符 包括颜色字符 超过部分自动截取
-    #注意 不得超过15行 超出部分 自动忽略
+    #记分板内容(不得超过38个字符 包括颜色字符 超过部分自动截取)
     lines:
-    - '&6插件名称: &a%plugin_name%'
-    - '&7------------------------------'
-    - '&6插件版本: &b%plugin_version%'
-    - '&7------------------------------'
-    - '&6插件作者: &c%plugin_author%'
-    - '&7------------------------------'
-    - '&6玩家名称: &a%player_displayname%'
-    - '&7------------------------------'
-    - '&6您所在的位置: &b%player_world% &a%player_x%,%player_y%,%player_z%'
-    - '&7------------------------------'
-    - '&6您所在的角度: &bYaw &a%player_yaw% &bPitch &a%player_pitch%'
-    - '&7------------------------------'
-    - '&6服务器使用内存: &a%server_ram_used%/%server_ram_total%'
-    - '&7------------------------------'
-    - '&6离2017年还剩: &a%time_left_2017-01-01`00:00:00%秒'
+    - '&6名 称: &a%player_displayname%'
+    - '&6世 界: &b%player_world%'
+    - '&6位 置: &3%player_x%,%player_y%,%player_z%'
+    - '&6等 级: &e%player_level%'
+    - '&6血 量: &c%player_health%'
+    - '&6饥 饿: &d%player_food_level%'
+    - '&6模 式: &4%player_gamemode%'
+  #默认记分板
+  admin:
+    #记分板顺序(将按照从小到大依次检测 比如 1-50 优先检测 1 符合则显示 不符合 检测 2 ...)
+    index: 49
+    #记分板标题
+    title: '服务器信息'
+    #记分板权限
+    permission: mb.reload
+    #记分板内容(不得超过38个字符 包括颜色字符 超过部分自动截取)
+    lines:
+    - '&6名 称: &a%plugin_name%'
+    - '&6版 本: &b%plugin_version%'
+    - '&6作 者: &c%plugin_author%'
+    - '&6人 数: &c%server_online%/%server_max%'
+    - '&6内 存: &a%server_ram_used%/%server_ram_total%/%server_ram_max%'

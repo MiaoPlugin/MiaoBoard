@@ -5,14 +5,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import pw.yumc.MiaoBoard.listener.PlayerListener;
 import pw.yumc.MiaoBoard.misc.Checker;
 import pw.yumc.MiaoBoard.scoreboard.ScoreBoardManager;
+import pw.yumc.YumCore.bukkit.Log;
 import pw.yumc.YumCore.commands.CommandArgument;
 import pw.yumc.YumCore.commands.CommandExecutor;
 import pw.yumc.YumCore.commands.CommandManager;
 import pw.yumc.YumCore.commands.annotation.Cmd;
 import pw.yumc.YumCore.commands.annotation.Help;
 import pw.yumc.YumCore.commands.annotation.Sort;
-import pw.yumc.YumCore.statistic.Statistics;
-import pw.yumc.YumCore.update.SubscribeTask;
 
 /**
  * 喵式记分板主类
@@ -21,46 +20,49 @@ import pw.yumc.YumCore.update.SubscribeTask;
  * @author 喵♂呜
  */
 public class MiaoBoard extends JavaPlugin implements CommandExecutor {
+    private ScoreBoardManager scoreBoardManager;
 
-    @Cmd()
+    public ScoreBoardManager getScoreBoardManager() {
+        return scoreBoardManager;
+    }
+
+    @Cmd(permission = "mb.toggle")
     @Help("关闭记分板")
     @Sort(2)
     public void off(final CommandArgument e) {
         Checker.offList.add(e.getSender().getName());
-        e.getSender().sendMessage("§c记分板已关闭!");
+        Log.toSender(e.getSender(), "§c记分板已关闭!");
     }
 
-    @Cmd()
+    @Cmd(permission = "mb.toggle")
     @Help("打开记分板")
     @Sort(1)
     public void on(final CommandArgument e) {
         Checker.offList.remove(e.getSender().getName());
-        e.getSender().sendMessage("§a记分板已打开!");
+        Log.toSender(e.getSender(), "§a记分板已打开!");
     }
 
     @Override
     public void onDisable() {
-        ScoreBoardManager.getSidebarBoard().cancel();
+        scoreBoardManager.getSidebarBoard().cancel();
     }
 
     @Override
     public void onEnable() {
-        ScoreBoardManager.start();
+        scoreBoardManager.start();
         new CommandManager("mb").register(this);
         new PlayerListener();
-        new Statistics();
-        new SubscribeTask(true, true);
     }
 
     @Override
     public void onLoad() {
-        ScoreBoardManager.load();
+        scoreBoardManager = new ScoreBoardManager();
     }
 
     @Cmd(permission = "mb.reload")
     @Help("重新载入配置文件")
     public void reload(final CommandArgument e) {
-        ScoreBoardManager.reload();
-        e.getSender().sendMessage("§a配置重载完毕!");
+        scoreBoardManager.reload();
+        Log.toSender(e.getSender(), "§a配置重载完毕!");
     }
 }

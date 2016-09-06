@@ -4,9 +4,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import cn.citycraft.PluginHelper.kit.StrKit;
@@ -15,12 +17,19 @@ import pw.yumc.YumCore.bukkit.P;
 import pw.yumc.YumCore.bukkit.compatible.C;
 
 public class Replace {
+    public static List<String> $(final Player p, final List<String> text) {
+        for (int i = 0; i < text.size(); i++) {
+            text.set(i, $(p, text.get(i)));
+        }
+        return text;
+    }
+
     public static String $(final Player p, final String text) {
         return s(p(p, text));
     }
 
     private static String p(final Player p, final String text) {
-        return SimpleRelpace.$(p, PluginAPI.PlaceholderAPI(p, text));
+        return PluginAPI.PlaceholderAPI(p, SimpleRelpace.$(p, text));
     }
 
     private static String s(final String text) {
@@ -30,7 +39,6 @@ public class Replace {
     static class SimpleRelpace {
         private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("[%]([^%]+)[%]");
         private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        private static final String EMPTY = "";
 
         public static String $(final Player player, String text) {
             final Matcher m = PLACEHOLDER_PATTERN.matcher(text);
@@ -38,7 +46,7 @@ public class Replace {
                 final String format = m.group(1);
                 if (format.contains("_")) {
                     final String[] ka = format.split("_", 2);
-                    String value = format;
+                    String value = null;
                     switch (ka[0]) {
                     case "player":
                         value = player(player, ka[1]);
@@ -53,7 +61,9 @@ public class Replace {
                         value = time(player, ka[1]);
                         break;
                     }
-                    text = text.replace("%" + format + "%", Matcher.quoteReplacement(value));
+                    if (value != null) {
+                        text = text.replace("%" + format + "%", Matcher.quoteReplacement(value));
+                    }
                 }
             }
             return text;
@@ -82,20 +92,20 @@ public class Replace {
             case "max_health":
                 return String.valueOf(player.getMaxHealth());
             default:
-                return EMPTY;
+                return String.format("%%player_%s%%", key);
             }
         }
 
         private static String plugin(final Player player, final String key) {
             switch (key) {
             case "version":
-                return P.getDescription().getVersion();
+                return P.getDescription().getVersion().split("-")[0];
             case "name":
                 return P.getName();
             case "author":
                 return Arrays.toString(P.getDescription().getAuthors().toArray());
             default:
-                return EMPTY;
+                return String.format("%%plugin_%s%%", key);
             }
         }
 
@@ -104,6 +114,10 @@ public class Replace {
             switch (key) {
             case "online":
                 return String.valueOf(C.Player.getOnlinePlayers().size());
+            case "max":
+                return String.valueOf(Bukkit.getMaxPlayers());
+            case "unique_joins":
+                return String.valueOf(Bukkit.getOfflinePlayers().length);
             case "ram_used":
                 return String.valueOf((runtime.totalMemory() - runtime.freeMemory()) / 1048576L);
             case "ram_free":
@@ -113,14 +127,14 @@ public class Replace {
             case "ram_max":
                 return String.valueOf(runtime.maxMemory() / 1048576L);
             default:
-                return EMPTY;
+                return String.format("%%server_%s%%", key);
             }
         }
 
         private static String time(final Player player, final String key) {
             final Date date = new Date();
             if (key.startsWith("left") && key.contains("_")) {
-                final String time = key.split("_")[1].replace("`", " ");
+                final String time = key.split("_")[1];
                 String value = "解析错误";
                 try {
                     final long left = df.parse(time).getTime() - System.currentTimeMillis();
@@ -145,7 +159,7 @@ public class Replace {
             case "second":
                 return String.valueOf(date.getSeconds());
             }
-            return EMPTY;
+            return String.format("%%time_%s%%", key);
         }
     }
 }

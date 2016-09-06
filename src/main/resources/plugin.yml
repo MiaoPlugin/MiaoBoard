@@ -12,7 +12,6 @@ commands:
     aliases:
     - mb
     usage: §b使用/${project.artifactId} help 查看帮助!
-    permission: mb.reload
     permission-message: §c你没有 <permission> 的权限来执行此命令!
 permissions:
   mb.reload:
@@ -20,4 +19,7 @@ permissions:
     default: op
   mb.default:
     description: 默认记分板权限!
+    default: true
+  mb.toggle:
+    description: 开启关闭记分板!
     default: true

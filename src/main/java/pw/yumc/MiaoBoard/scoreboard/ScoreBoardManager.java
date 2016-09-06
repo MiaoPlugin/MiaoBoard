@@ -7,16 +7,16 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 
-import cn.citycraft.PluginHelper.config.FileConfig;
-import cn.citycraft.PluginHelper.scoreboard.BoardUpdateFunction;
-import cn.citycraft.PluginHelper.scoreboard.Condition;
-import cn.citycraft.PluginHelper.scoreboard.SidebarBoard;
 import pw.yumc.MiaoBoard.config.MiaoBoardConfig;
 import pw.yumc.MiaoBoard.model.BoardModel;
+import pw.yumc.MiaoBoard.scoreboard.core.BoardUpdateFunction;
+import pw.yumc.MiaoBoard.scoreboard.core.Condition;
+import pw.yumc.MiaoBoard.scoreboard.core.SidebarBoard;
 import pw.yumc.MiaoBoard.scoreboard.updater.BodyUpdater;
 import pw.yumc.MiaoBoard.scoreboard.updater.TitleUpdater;
 import pw.yumc.YumCore.bukkit.P;
 import pw.yumc.YumCore.bukkit.compatible.C;
+import pw.yumc.YumCore.config.FileConfig;
 
 /**
  * 记分板管理类
@@ -25,20 +25,30 @@ import pw.yumc.YumCore.bukkit.compatible.C;
  * @author 喵♂呜
  */
 public class ScoreBoardManager {
-    public static Status cot = new Status();
-    public static SidebarBoard sbd = new SidebarBoard(P.instance, new BoardUpdateFunction(new TitleUpdater(), new BodyUpdater()));
-    public static FileConfig config = MiaoBoardConfig.i().getConfig();;
-    public static List<BoardModel> bms = new LinkedList<>();
+    public Status cot = new Status();
+    public SidebarBoard sbd = new SidebarBoard(P.instance, new BoardUpdateFunction(new TitleUpdater(), new BodyUpdater()));
+    public FileConfig config = MiaoBoardConfig.i().getConfig();
+    public List<BoardModel> bms = new LinkedList<>();
 
-    public static List<BoardModel> getModels() {
+    public ScoreBoardManager() {
+        load();
+    }
+
+    public void addTarget(final Player player) {
+        if (!MiaoBoardConfig.i().getDisableWorld().contains(player.getWorld().getName())) {
+            getSidebarBoard().addTarget(player);
+        }
+    }
+
+    public List<BoardModel> getModels() {
         return bms;
     }
 
-    public static SidebarBoard getSidebarBoard() {
+    public SidebarBoard getSidebarBoard() {
         return sbd;
     }
 
-    public static void load() {
+    public void load() {
         bms.clear();
         for (final String bmn : config.getConfigurationSection("Boards").getKeys(false)) {
             bms.add(new BoardModel(config.getConfigurationSection("Boards." + bmn)).setName(bmn));
@@ -46,28 +56,28 @@ public class ScoreBoardManager {
         Collections.sort(bms, new BoardComparator());
     }
 
-    public static void reload() {
+    public void reload() {
         sbd.cancel();
         MiaoBoardConfig.reInject();
         load();
         start();
     }
 
-    public static void start() {
-        sbd.update(cot.set(true), MiaoBoardConfig.UpdateTime);
+    public void start() {
+        sbd.update(cot.set(true), MiaoBoardConfig.i().getUpdateTime());
         for (final Player player : C.Player.getOnlinePlayers()) {
-            sbd.addTarget(player);
+            addTarget(player);
         }
     }
 
-    private static class BoardComparator implements Comparator<BoardModel> {
+    private class BoardComparator implements Comparator<BoardModel> {
         @Override
         public int compare(final BoardModel o1, final BoardModel o2) {
             return o1.index.compareTo(o2.index);
         }
     }
 
-    private static class Status implements Condition {
+    private class Status implements Condition {
         private boolean status = true;
 
         @Override

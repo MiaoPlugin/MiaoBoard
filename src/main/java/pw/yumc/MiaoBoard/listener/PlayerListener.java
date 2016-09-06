@@ -7,9 +7,11 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import pw.yumc.MiaoBoard.MiaoBoard;
 import pw.yumc.MiaoBoard.config.MiaoBoardConfig;
-import pw.yumc.MiaoBoard.scoreboard.ScoreBoardManager;
 import pw.yumc.YumCore.bukkit.P;
+import pw.yumc.YumCore.statistic.Statistics;
+import pw.yumc.YumCore.update.SubscribeTask;
 
 /**
  * 玩家监听
@@ -18,28 +20,30 @@ import pw.yumc.YumCore.bukkit.P;
  * @author 喵♂呜
  */
 public class PlayerListener implements Listener {
+    MiaoBoard plugin = P.getPlugin();
+
     public PlayerListener() {
-        Bukkit.getPluginManager().registerEvents(this, P.instance);
+        Bukkit.getPluginManager().registerEvents(this, plugin);
+        new Statistics();
+        new SubscribeTask(true, true);
     }
 
     @EventHandler
     public void onPlayerChangeWorld(final PlayerChangedWorldEvent e) {
-        if (MiaoBoardConfig.DisableWorld.contains(e.getPlayer().getWorld().getName())) {
-            ScoreBoardManager.getSidebarBoard().removeTarget(e.getPlayer());
+        if (MiaoBoardConfig.i().getDisableWorld().contains(e.getPlayer().getWorld().getName())) {
+            plugin.getScoreBoardManager().getSidebarBoard().removeTarget(e.getPlayer());
         } else {
-            ScoreBoardManager.getSidebarBoard().addTarget(e.getPlayer());
+            plugin.getScoreBoardManager().getSidebarBoard().addTarget(e.getPlayer());
         }
     }
 
     @EventHandler
     public void onPlayerJoin(final PlayerJoinEvent e) {
-        if (!MiaoBoardConfig.DisableWorld.contains(e.getPlayer().getWorld().getName())) {
-            ScoreBoardManager.getSidebarBoard().addTarget(e.getPlayer());
-        }
+        plugin.getScoreBoardManager().addTarget(e.getPlayer());
     }
 
     @EventHandler
     public void onPlayerQuit(final PlayerQuitEvent e) {
-        ScoreBoardManager.getSidebarBoard().removeTarget(e.getPlayer());
+        plugin.getScoreBoardManager().getSidebarBoard().removeTarget(e.getPlayer());
     }
 }
