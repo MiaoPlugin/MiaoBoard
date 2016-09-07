@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,10 +19,11 @@ import pw.yumc.YumCore.bukkit.compatible.C;
 
 public class Replace {
     public static List<String> $(final Player p, final List<String> text) {
-        for (int i = 0; i < text.size(); i++) {
-            text.set(i, $(p, text.get(i)));
+        final List<String> temp = new LinkedList<>();
+        for (final String i : text) {
+            temp.add($(p, i));
         }
-        return text;
+        return temp;
     }
 
     public static String $(final Player p, final String text) {

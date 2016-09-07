@@ -47,7 +47,8 @@ public class SidebarBoard extends Board {
         String title = null;
         if (this.getUpdateFunction().getTitleFunction() != null) {
             title = this.getUpdateFunction().getTitleFunction().run(player);
-        } else {
+        }
+        if (title == null) {
             this.removeTarget(player);
             return;
         }
