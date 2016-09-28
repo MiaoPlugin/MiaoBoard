@@ -79,6 +79,7 @@ public class SidebarBoard extends Board {
             entry.update(line, newContents.size() - index - 1);
             boardPage.getLastEntries().add(entry);
         }
+        player.setScoreboard(boardPage.getBoard());
     }
 
     private void formatBody(final List<String> texts) {
