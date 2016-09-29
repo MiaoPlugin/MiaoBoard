@@ -10,6 +10,7 @@ import pw.yumc.YumCore.commands.CommandArgument;
 import pw.yumc.YumCore.commands.CommandExecutor;
 import pw.yumc.YumCore.commands.CommandManager;
 import pw.yumc.YumCore.commands.annotation.Cmd;
+import pw.yumc.YumCore.commands.annotation.Cmd.Executor;
 import pw.yumc.YumCore.commands.annotation.Help;
 import pw.yumc.YumCore.commands.annotation.Sort;
 
@@ -26,7 +27,7 @@ public class MiaoBoard extends JavaPlugin implements CommandExecutor {
         return scoreBoardManager;
     }
 
-    @Cmd(permission = "mb.toggle")
+    @Cmd(permission = "mb.toggle", executor = Executor.PLAYER)
     @Help("关闭记分板")
     @Sort(2)
     public void off(final CommandArgument e) {
@@ -34,7 +35,7 @@ public class MiaoBoard extends JavaPlugin implements CommandExecutor {
         Log.toSender(e.getSender(), "§c记分板已关闭!");
     }
 
-    @Cmd(permission = "mb.toggle")
+    @Cmd(permission = "mb.toggle", executor = Executor.PLAYER)
     @Help("打开记分板")
     @Sort(1)
     public void on(final CommandArgument e) {

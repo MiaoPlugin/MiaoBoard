@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -49,7 +50,7 @@ public class SidebarBoard extends Board {
             title = this.getUpdateFunction().getTitleFunction().run(player);
         }
         if (title == null) {
-            this.removeTarget(player);
+            player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
             return;
         }
         final List<String> newContents = this.getUpdateFunction().getBodyFunction().run(player);

@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import pw.yumc.MiaoBoard.MiaoBoard;
 import pw.yumc.MiaoBoard.config.MiaoBoardConfig;
+import pw.yumc.MiaoBoard.scoreboard.ScoreBoardManager;
 import pw.yumc.YumCore.bukkit.P;
 import pw.yumc.YumCore.statistic.Statistics;
 import pw.yumc.YumCore.update.SubscribeTask;
@@ -21,6 +22,7 @@ import pw.yumc.YumCore.update.SubscribeTask;
  */
 public class PlayerListener implements Listener {
     MiaoBoard plugin = P.getPlugin();
+    ScoreBoardManager manager = plugin.getScoreBoardManager();
 
     public PlayerListener() {
         Bukkit.getPluginManager().registerEvents(this, plugin);
@@ -30,20 +32,20 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerChangeWorld(final PlayerChangedWorldEvent e) {
-        if (MiaoBoardConfig.i().getDisableWorld().contains(e.getPlayer().getWorld().getName())) {
-            plugin.getScoreBoardManager().getSidebarBoard().removeTarget(e.getPlayer());
+        if (MiaoBoardConfig.i().DisableWorld.contains(e.getPlayer().getWorld().getName())) {
+            manager.removeTarget(e.getPlayer());
         } else {
-            plugin.getScoreBoardManager().getSidebarBoard().addTarget(e.getPlayer());
+            manager.addTarget(e.getPlayer());
         }
     }
 
     @EventHandler
     public void onPlayerJoin(final PlayerJoinEvent e) {
-        plugin.getScoreBoardManager().addTarget(e.getPlayer());
+        manager.addTarget(e.getPlayer());
     }
 
     @EventHandler
     public void onPlayerQuit(final PlayerQuitEvent e) {
-        plugin.getScoreBoardManager().getSidebarBoard().removeTarget(e.getPlayer());
+        manager.removeTarget(e.getPlayer());
     }
 }

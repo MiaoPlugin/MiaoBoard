@@ -45,7 +45,7 @@ public abstract class Board implements Iterable<Player> {
             plugin.getServer().getScheduler().cancelTask(taskId);
             taskId = 0;
             for (final Player player : this.targets.keySet()) {
-                player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+                player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
             }
             this.targets.clear();
             this.removeQueue.clear();
@@ -85,7 +85,7 @@ public abstract class Board implements Iterable<Player> {
 
     public boolean removeTarget(final Player player) {
         if (this.isTarget(player)) {
-            player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+            player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
             return this.removeQueue.add(player);
         }
         return false;
@@ -93,7 +93,6 @@ public abstract class Board implements Iterable<Player> {
 
     public void update(final Condition condition, final int interval) {
         taskId = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
-
             @Override
             public void run() {
                 if (condition.get()) {

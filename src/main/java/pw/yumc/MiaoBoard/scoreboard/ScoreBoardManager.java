@@ -35,7 +35,7 @@ public class ScoreBoardManager {
     }
 
     public void addTarget(final Player player) {
-        if (!MiaoBoardConfig.i().getDisableWorld().contains(player.getWorld().getName())) {
+        if (!MiaoBoardConfig.i().DisableWorld.contains(player.getWorld().getName())) {
             getSidebarBoard().addTarget(player);
         }
     }
@@ -63,8 +63,12 @@ public class ScoreBoardManager {
         start();
     }
 
+    public void removeTarget(final Player player) {
+        sbd.removeTarget(player);
+    }
+
     public void start() {
-        sbd.update(cot.set(true), MiaoBoardConfig.i().getUpdateTime());
+        sbd.update(cot.set(true), MiaoBoardConfig.i().UpdateTime);
         for (final Player player : C.Player.getOnlinePlayers()) {
             addTarget(player);
         }

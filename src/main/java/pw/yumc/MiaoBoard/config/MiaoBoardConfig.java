@@ -13,8 +13,8 @@ import pw.yumc.YumCore.config.InjectConfig;
  */
 public class MiaoBoardConfig extends InjectConfig {
     public transient static MiaoBoardConfig instance = new MiaoBoardConfig();
-    private Integer UpdateTime;
-    private List<String> DisableWorld;
+    public Integer UpdateTime;
+    public List<String> DisableWorld = Collections.emptyList();
 
     public static MiaoBoardConfig i() {
         return instance;
@@ -22,16 +22,5 @@ public class MiaoBoardConfig extends InjectConfig {
 
     public static void reInject() {
         instance.reload();
-    }
-
-    public List<String> getDisableWorld() {
-        if (DisableWorld == null) {
-            DisableWorld = Collections.emptyList();
-        }
-        return DisableWorld;
-    }
-
-    public Integer getUpdateTime() {
-        return UpdateTime;
     }
 }
