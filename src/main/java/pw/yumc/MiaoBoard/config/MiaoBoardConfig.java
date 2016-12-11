@@ -3,7 +3,7 @@ package pw.yumc.MiaoBoard.config;
 import java.util.Collections;
 import java.util.List;
 
-import pw.yumc.YumCore.config.InjectConfig;
+import pw.yumc.YumCore.config.inject.InjectConfig;
 
 /**
  * 记分板配置文件类

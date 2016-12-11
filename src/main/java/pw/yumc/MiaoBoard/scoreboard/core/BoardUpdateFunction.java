@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 
-import cn.citycraft.PluginHelper.callback.CallBackReturn;
+import pw.yumc.YumCore.callback.CallBackReturn;
 
 /**
  *

@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import pw.yumc.YumCore.config.ConfigNode;
-import pw.yumc.YumCore.config.InjectConfigurationSection;
-import pw.yumc.YumCore.config.Nullable;
+import pw.yumc.YumCore.config.annotation.ConfigNode;
+import pw.yumc.YumCore.config.annotation.Nullable;
+import pw.yumc.YumCore.config.inject.InjectConfigurationSection;
 
 /**
  * 记分板数据模型类

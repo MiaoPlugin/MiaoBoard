@@ -12,10 +12,10 @@ import java.util.regex.Pattern;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import cn.citycraft.PluginHelper.kit.StrKit;
-import cn.citycraft.PluginHelper.pluginapi.PluginAPI;
+import me.clip.placeholderapi.PlaceholderAPI;
 import pw.yumc.YumCore.bukkit.P;
 import pw.yumc.YumCore.bukkit.compatible.C;
+import pw.yumc.YumCore.kit.StrKit;
 
 public class Replace {
     public static List<String> $(final Player p, final List<String> text) {
@@ -31,7 +31,7 @@ public class Replace {
     }
 
     private static String p(final Player p, final String text) {
-        return PluginAPI.PlaceholderAPI(p, SimpleRelpace.$(p, text));
+        return PlaceholderAPI.setPlaceholders(p, SimpleRelpace.$(p, text));
     }
 
     private static String s(final String text) {
@@ -141,7 +141,7 @@ public class Replace {
                 try {
                     final long left = df.parse(time).getTime() - System.currentTimeMillis();
                     value = String.valueOf(left / 1000);
-                } catch (final ParseException e) {
+                } catch (final ParseException ignored) {
                 }
                 return value;
             }
