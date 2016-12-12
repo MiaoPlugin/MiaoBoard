@@ -22,6 +22,7 @@ public class SiderbarBoardPage extends BoardPage {
 
     private static final List<ChatColor> colors = Arrays.asList(ChatColor.values()); //所有颜色
     private final List<BoardLine> boardLines = new ArrayList<>();// "行"
+    private int maxLine;//用于标注最大行数
 
     public SiderbarBoardPage() {
         super();
@@ -63,13 +64,16 @@ public class SiderbarBoardPage extends BoardPage {
         if (suffix != null) {
             boardLine.getTeam().setSuffix(suffix);//"设置后16个字符"
         }
+        maxLine = line + 1;
     }
 
+    //all 5  [0 1 2 3 4] maxLine = 5  all 3 [0 1 2] maxLine=4
     public void clear(int size) {
-        if (size < boardLines.size()) {
-            for (int i = size; i < boardLines.size(); i++) {
+        if (maxLine > size) {
+            for (int i = size; i < maxLine; i++) {
                 removeLine(i);
             }
+            maxLine = size;
         }
     }
 

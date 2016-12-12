@@ -51,7 +51,7 @@ public class MiaoBoard extends JavaPlugin implements Executor {
     @Override
     public void onEnable() {
         scoreBoardManager.start();
-        new CommandSub("mb").register(this);
+        new CommandSub("mb", this);
         new PlayerListener();
     }
 

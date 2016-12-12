@@ -81,7 +81,7 @@
     <properties>
         <update.description></update.description>
         <update.changes></update.changes>
-        <env.GIT_COMMIT>DEBUG</env.GIT_COMMIT>
+        <env.GIT_COMMIT>DEV</env.GIT_COMMIT>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <repositories>
