@@ -10,6 +10,8 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Team;
 
+import pw.yumc.YumCore.kit.StrKit;
+
 /**
  *
  * @since 2016年7月4日 下午4:40:21
@@ -48,19 +50,18 @@ public class SiderbarBoardPage extends BoardPage {
         Validate.notNull(boardLine, "Unable to find BoardLine with index of " + line + "."); //确认是否存在
         objective.getScore(boardLine.getColor().toString()).setScore(line); //设置"行"
         //分割字符串为前16个和后16个
-        String prefix = value.substring(0, 16);
-        boardLine.getTeam().setPrefix(prefix); //设置前16个字符
+        boardLine.getTeam().setPrefix(StrKit.substring(value, 0, 16)); //设置前16个字符
         if (value.length() > 16) {
             String suffix = value.substring(16, value.length());
             //处理前后的颜色
             String sufpre = "";
-            String prepre = ChatColor.getLastColors(prefix);
-            if (prefix.charAt(15) == '§') {
+            String prepre = ChatColor.getLastColors(value);
+            if (value.charAt(15) == '§') {
                 sufpre = "§";
             } else if (!"".equals(prepre)) {
                 sufpre = prepre;
             }
-            suffix = (sufpre + suffix).substring(0, 16);
+            suffix = StrKit.substring(sufpre + suffix, 0, 16);
             boardLine.getTeam().setSuffix(suffix);//"设置后16个字符"
         }
         maxLine = line + 1;

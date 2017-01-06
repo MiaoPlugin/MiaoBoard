@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 import me.clip.placeholderapi.PlaceholderAPI;
 import pw.yumc.YumCore.bukkit.P;
 import pw.yumc.YumCore.bukkit.compatible.C;
-import pw.yumc.YumCore.kit.StrKit;
 
 public class Replace {
     public static List<String> $(final Player p, final List<String> text) {
@@ -27,15 +26,11 @@ public class Replace {
     }
 
     public static String $(final Player p, final String text) {
-        return s(p(p, text));
+        return p(p, text);
     }
 
     private static String p(final Player p, final String text) {
         return PlaceholderAPI.setPlaceholders(p, SimpleRelpace.$(p, text));
-    }
-
-    private static String s(final String text) {
-        return StrKit.substring(text, 0, 36);
     }
 
     static class SimpleRelpace {
