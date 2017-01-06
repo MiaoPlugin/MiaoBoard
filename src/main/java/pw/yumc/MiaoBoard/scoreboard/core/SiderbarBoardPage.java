@@ -3,7 +3,6 @@ package pw.yumc.MiaoBoard.scoreboard.core;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
@@ -48,20 +47,20 @@ public class SiderbarBoardPage extends BoardPage {
         final BoardLine boardLine = getBoardLine(line); //得到我们的"行"
         Validate.notNull(boardLine, "Unable to find BoardLine with index of " + line + "."); //确认是否存在
         objective.getScore(boardLine.getColor().toString()).setScore(line); //设置"行"
-        String prefix = value;
-        String suffix = null;
         //分割字符串为前16个和后16个
-        if (value.length() > 16) {
-            prefix = value.substring(0, 16);
-            if (ChatColor.getLastColors(prefix) != null && !Objects.equals(ChatColor.getLastColors(prefix), "") && !Objects.equals(ChatColor.getLastColors(prefix), " ")) {
-                //继承前16个字符的颜色
-                suffix = ChatColor.getLastColors(prefix) + value.substring(16, value.length());
-            } else {
-                suffix = ChatColor.RESET + value.substring(16, value.length());
-            }
-        }
+        String prefix = value.substring(0, 16);
         boardLine.getTeam().setPrefix(prefix); //设置前16个字符
-        if (suffix != null) {
+        if (value.length() > 16) {
+            String suffix = value.substring(16, value.length());
+            //处理前后的颜色
+            String sufpre = "";
+            String prepre = ChatColor.getLastColors(prefix);
+            if (prefix.charAt(15) == '§') {
+                sufpre = "§";
+            } else if (!"".equals(prepre)) {
+                sufpre = prepre;
+            }
+            suffix = (sufpre + suffix).substring(0, 16);
             boardLine.getTeam().setSuffix(suffix);//"设置后16个字符"
         }
         maxLine = line + 1;
