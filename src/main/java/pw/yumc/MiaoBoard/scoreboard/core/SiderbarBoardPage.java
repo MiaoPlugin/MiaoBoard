@@ -63,6 +63,8 @@ public class SiderbarBoardPage extends BoardPage {
             }
             suffix = StrKit.substring(sufpre + suffix, 0, 16);
             boardLine.getTeam().setSuffix(suffix);//"设置后16个字符"
+        } else {
+            boardLine.getTeam().setSuffix("");//"清理后16个字符"
         }
         maxLine = line + 1;
     }
