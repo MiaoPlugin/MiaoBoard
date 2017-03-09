@@ -9,9 +9,9 @@ import pw.yumc.MiaoBoard.MiaoBoard;
 import pw.yumc.MiaoBoard.event.BodyUpdateEvent;
 import pw.yumc.MiaoBoard.event.TitleUpdateEvent;
 import pw.yumc.MiaoBoard.misc.Checker;
-import pw.yumc.MiaoBoard.misc.Replace;
 import pw.yumc.MiaoBoard.model.BoardModel;
 import pw.yumc.YumCore.bukkit.P;
+import pw.yumc.YumCore.text.Replace;
 
 /**
  * 自身记分板监听类

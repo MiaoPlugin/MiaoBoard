@@ -22,10 +22,7 @@ public abstract class Board implements Iterable<Player> {
     private final HashMap<Player, BoardPage> targets = new HashMap<>();
     private final Set<Player> removeQueue = new HashSet<>();
 
-    private final BoardUpdateFunction updateFunction;
-
-    public Board(final Plugin plugin, final BoardUpdateFunction updateFunction) {
-        this.updateFunction = updateFunction;
+    public Board(final Plugin plugin) {
         this.plugin = plugin;
     }
 
@@ -64,10 +61,6 @@ public abstract class Board implements Iterable<Player> {
         return targets.keySet();
     }
 
-    public BoardUpdateFunction getUpdateFunction() {
-        return updateFunction;
-    }
-
     public boolean isRunning() {
         return this.taskId != 0;
     }
@@ -92,22 +85,19 @@ public abstract class Board implements Iterable<Player> {
     }
 
     public void update(final Condition condition, final int interval) {
-        taskId = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
-            @Override
-            public void run() {
-                if (condition.get()) {
-                    final Iterator<Player> iterator = iterator();
-                    while (iterator.hasNext()) {
-                        final Player next = iterator.next();
-                        if (shouldRemove(next)) {
-                            iterator.remove();
-                        } else {
-                            update(next);
-                        }
+        taskId = plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, () -> {
+            if (condition.get()) {
+                final Iterator<Player> iterator = iterator();
+                while (iterator.hasNext()) {
+                    final Player next = iterator.next();
+                    if (shouldRemove(next)) {
+                        iterator.remove();
+                    } else {
+                        update(next);
                     }
-                } else {
-                    cancel();
                 }
+            } else {
+                cancel();
             }
         }, 0, interval).getTaskId();
     }

@@ -8,11 +8,8 @@ import org.bukkit.entity.Player;
 
 import pw.yumc.MiaoBoard.config.MiaoBoardConfig;
 import pw.yumc.MiaoBoard.model.BoardModel;
-import pw.yumc.MiaoBoard.scoreboard.core.BoardUpdateFunction;
 import pw.yumc.MiaoBoard.scoreboard.core.Condition;
 import pw.yumc.MiaoBoard.scoreboard.core.SidebarBoard;
-import pw.yumc.MiaoBoard.scoreboard.updater.BodyUpdater;
-import pw.yumc.MiaoBoard.scoreboard.updater.TitleUpdater;
 import pw.yumc.YumCore.bukkit.P;
 import pw.yumc.YumCore.bukkit.compatible.C;
 import pw.yumc.YumCore.config.FileConfig;
@@ -25,7 +22,7 @@ import pw.yumc.YumCore.config.FileConfig;
  */
 public class ScoreBoardManager {
     public Status cot = new Status();
-    public SidebarBoard sbd = new SidebarBoard(P.instance, new BoardUpdateFunction(new TitleUpdater(), new BodyUpdater()));
+    public SidebarBoard sbd = new SidebarBoard(P.instance);
     public FileConfig config = MiaoBoardConfig.i().getConfig();
     public List<BoardModel> bms = new LinkedList<>();
 
