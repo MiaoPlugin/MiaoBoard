@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import pw.yumc.MiaoBoard.listener.PlayerListener;
+import pw.yumc.MiaoBoard.listener.SelfListener;
 import pw.yumc.MiaoBoard.misc.Checker;
 import pw.yumc.MiaoBoard.scoreboard.ScoreBoardManager;
 import pw.yumc.YumCore.bukkit.Log;
@@ -30,7 +31,7 @@ public class MiaoBoard extends JavaPlugin implements Executor {
     @Cmd(permission = "mb.toggle", executor = Cmd.Executor.PLAYER)
     @Help("关闭记分板")
     @Sort(2)
-    public void off(final Player player) {
+    public void off(Player player) {
         Checker.offList.add(player.getName());
         Log.sender(player, "§c记分板已关闭!");
     }
@@ -38,7 +39,7 @@ public class MiaoBoard extends JavaPlugin implements Executor {
     @Cmd(permission = "mb.toggle", executor = Cmd.Executor.PLAYER)
     @Help("打开记分板")
     @Sort(1)
-    public void on(final Player player) {
+    public void on(Player player) {
         Checker.offList.remove(player.getName());
         Log.sender(player, "§a记分板已打开!");
     }
@@ -53,6 +54,7 @@ public class MiaoBoard extends JavaPlugin implements Executor {
         scoreBoardManager.start();
         new CommandSub("mb", this);
         new PlayerListener();
+        new SelfListener();
     }
 
     @Override
@@ -62,7 +64,7 @@ public class MiaoBoard extends JavaPlugin implements Executor {
 
     @Cmd(permission = "mb.reload")
     @Help("重新载入配置文件")
-    public void reload(final CommandSender sender) {
+    public void reload(CommandSender sender) {
         scoreBoardManager.reload();
         Log.sender(sender, "§a配置重载完毕!");
     }

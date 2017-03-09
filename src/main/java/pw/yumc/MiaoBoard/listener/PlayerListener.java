@@ -31,7 +31,7 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerChangeWorld(final PlayerChangedWorldEvent e) {
+    public void onPlayerChangeWorld(PlayerChangedWorldEvent e) {
         if (MiaoBoardConfig.i().DisableWorld.contains(e.getPlayer().getWorld().getName())) {
             manager.removeTarget(e.getPlayer());
         } else {
@@ -40,12 +40,12 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerJoin(final PlayerJoinEvent e) {
+    public void onPlayerJoin(PlayerJoinEvent e) {
         manager.addTarget(e.getPlayer());
     }
 
     @EventHandler
-    public void onPlayerQuit(final PlayerQuitEvent e) {
+    public void onPlayerQuit(PlayerQuitEvent e) {
         manager.removeTarget(e.getPlayer());
     }
 }

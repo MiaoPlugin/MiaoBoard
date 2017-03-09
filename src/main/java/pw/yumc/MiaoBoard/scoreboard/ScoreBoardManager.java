@@ -1,6 +1,5 @@
 package pw.yumc.MiaoBoard.scoreboard;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,10 +49,8 @@ public class ScoreBoardManager {
 
     public void load() {
         bms.clear();
-        for (final String bmn : config.getConfigurationSection("Boards").getKeys(false)) {
-            bms.add(new BoardModel(config.getConfigurationSection("Boards." + bmn)).setName(bmn));
-        }
-        Collections.sort(bms, new BoardComparator());
+        config.getConfigurationSection("Boards").getKeys(false).forEach(bmn -> bms.add(new BoardModel(bmn, config.getConfigurationSection("Boards." + bmn))));
+        bms.sort(Comparator.comparing(o -> o.index));
     }
 
     public void reload() {
@@ -69,16 +66,7 @@ public class ScoreBoardManager {
 
     public void start() {
         sbd.update(cot.set(true), MiaoBoardConfig.i().UpdateTime);
-        for (final Player player : C.Player.getOnlinePlayers()) {
-            addTarget(player);
-        }
-    }
-
-    private class BoardComparator implements Comparator<BoardModel> {
-        @Override
-        public int compare(final BoardModel o1, final BoardModel o2) {
-            return o1.index.compareTo(o2.index);
-        }
+        C.Player.getOnlinePlayers().forEach(this::addTarget);
     }
 
     private class Status implements Condition {

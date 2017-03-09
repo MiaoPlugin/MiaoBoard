@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>pw.yumc</groupId>
     <artifactId>MiaoBoard</artifactId>
-    <version>2.3.2</version>
+    <version>2.3.3</version>
     <description>喵式记分板</description>
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -15,24 +15,15 @@
         </resources>
         <plugins>
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.4.3</version>
                 <configuration>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <minimizeJar>true</minimizeJar>
                     <artifactSet>
                         <includes>
                             <include>pw.yumc:YumCore</include>
-                            <include>cn.citycraft:PluginHelper</include>
                         </includes>
                     </artifactSet>
                     <relocations>
@@ -81,6 +72,8 @@
     <properties>
         <env.GIT_COMMIT>DEV</env.GIT_COMMIT>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <repositories>
         <repository>
@@ -100,7 +93,7 @@
             <groupId>pw.yumc</groupId>
             <artifactId>YumCore</artifactId>
             <type>jar</type>
-            <version>1.5</version>
+            <version>1.7</version>
         </dependency>
     </dependencies>
 </project>

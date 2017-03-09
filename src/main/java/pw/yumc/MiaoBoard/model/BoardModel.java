@@ -31,21 +31,11 @@ public class BoardModel extends InjectConfigurationSection {
     /**
      * 自动载入配置
      *
+     * @param name
      * @param config
      */
-    public BoardModel(final ConfigurationSection config) {
+    public BoardModel(String name, final ConfigurationSection config) {
         super(config);
-    }
-
-    /**
-     * 设置模型名称
-     *
-     * @param name
-     *            名称
-     * @return {@link BoardModel}
-     */
-    public BoardModel setName(final String name) {
         this.name = name;
-        return this;
     }
 }

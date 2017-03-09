@@ -1,14 +1,12 @@
 package pw.yumc.MiaoBoard.scoreboard.updater;
 
-import java.util.Collections;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import pw.yumc.MiaoBoard.MiaoBoard;
-import pw.yumc.MiaoBoard.misc.Checker;
-import pw.yumc.MiaoBoard.misc.Replace;
-import pw.yumc.MiaoBoard.model.BoardModel;
+import pw.yumc.MiaoBoard.event.BodyUpdateEvent;
 import pw.yumc.YumCore.bukkit.P;
 import pw.yumc.YumCore.callback.CallBackReturn;
 
@@ -23,10 +21,9 @@ public class BodyUpdater extends CallBackReturn.One<Player, List<String>> {
 
     @Override
     public List<String> run(final Player param) {
-        for (BoardModel bmodel : plugin.getScoreBoardManager().getModels()) {
-            if (Checker.$(param, bmodel)) { return Replace.$(param, bmodel.lines); }
-        }
-        return Collections.emptyList();
+        BodyUpdateEvent event = new BodyUpdateEvent(param);
+        Bukkit.getPluginManager().callEvent(event);
+        return event.getBody();
     }
 
 }
