@@ -19,9 +19,8 @@ import pw.yumc.YumCore.kit.StrKit;
  */
 public class SiderbarBoardPage extends BoardPage {
 
-    private final Objective objective;
-
     private static final List<ChatColor> colors = Arrays.asList(ChatColor.values()); //所有颜色
+    private final Objective objective;
     private final List<BoardLine> boardLines = new ArrayList<>();// "行"
     private int maxLine;//用于标注最大行数
 
@@ -50,22 +49,21 @@ public class SiderbarBoardPage extends BoardPage {
         Validate.notNull(boardLine, "Unable to find BoardLine with index of " + line + "."); //确认是否存在
         objective.getScore(boardLine.getColor().toString()).setScore(line); //设置"行"
         //分割字符串为前16个和后16个
-        boardLine.getTeam().setPrefix(StrKit.substring(value, 0, 16)); //设置前16个字符
+        String prefix = StrKit.substring(value, 0, 16);
+        String suffix = "";
         if (value.length() > 16) {
-            String suffix = value.substring(16, value.length());
+            suffix = value.substring(16, value.length());
             //处理前后的颜色
-            String sufpre = "";
-            String prepre = ChatColor.getLastColors(value);
+            String sufpre = ChatColor.getLastColors(prefix);
             if (value.charAt(15) == '§') {
                 sufpre = "§";
-            } else if (!"".equals(prepre)) {
-                sufpre = prepre;
+            } else if (!suffix.isEmpty() && suffix.charAt(0) == '§') {
+                sufpre = "";
             }
             suffix = StrKit.substring(sufpre + suffix, 0, 16);
-            boardLine.getTeam().setSuffix(suffix);//"设置后16个字符"
-        } else {
-            boardLine.getTeam().setSuffix("");//"清理后16个字符"
         }
+        boardLine.getTeam().setPrefix(prefix); //设置前16个字符
+        boardLine.getTeam().setSuffix(suffix); //设置后16个字符
         maxLine = line + 1;
     }
 
