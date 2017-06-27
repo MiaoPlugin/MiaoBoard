@@ -10,6 +10,7 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Team;
 
+import pw.yumc.YumCore.bukkit.compatible.C;
 import pw.yumc.YumCore.kit.StrKit;
 
 /**
@@ -18,6 +19,14 @@ import pw.yumc.YumCore.kit.StrKit;
  * @author 尘曲
  */
 public class SiderbarBoardPage extends BoardPage {
+    private static boolean newVer = true;
+    static {
+        try {
+            Team.class.getDeclaredMethod("addEntry", String.class);
+        } catch (NoSuchMethodException e) {
+            newVer = false;
+        }
+    }
 
     private static final List<ChatColor> colors = Arrays.asList(ChatColor.values()); //所有颜色
     private final Objective objective;
@@ -31,7 +40,12 @@ public class SiderbarBoardPage extends BoardPage {
         for (int i = 0; i < colors.size(); i++) { //循环所有的颜色
             final ChatColor color = colors.get(i);
             final Team team = getBoard().registerNewTeam("MiaoboardLine" + i); //为每个颜色注册一个队伍
-            team.addEntry(color.toString()); //为队伍设置一个"行"
+            //为队伍设置一个"行"
+            if (newVer) {
+                team.addEntry(color.toString());
+            } else {
+                team.addPlayer(C.Player.getOfflinePlayer(color.toString()));
+            }
             boardLines.add(new BoardLine(color, team)); //将"行"添加至列表
         }
     }
