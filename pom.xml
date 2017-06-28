@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>pw.yumc</groupId>
     <artifactId>MiaoBoard</artifactId>
-    <version>2.3.5</version>
+    <version>2.3.6</version>
     <description>喵式记分板</description>
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -54,7 +54,8 @@
                         <configuration>
                             <options>
                                 <option>-repackageclasses \ʼ.ʽ.ʾ.${project.artifactId}</option>
-                                <option>-keep class ${project.groupId}.${project.artifactId}.${project.artifactId}</option>
+                                <option>-keep class ${project.groupId}.${project.artifactId}.${project.artifactId}
+                                </option>
                             </options>
                             <libs>
                                 <lib>${java.home}/lib/rt.jar</lib>
@@ -70,8 +71,9 @@
         <url>http://ci.yumc.pw/job/${project.artifactId}/</url>
     </ciManagement>
     <properties>
-        <update.description>§a正式版本 2.3.5</update.description>
+        <update.description>§a正式版本 2.3.6</update.description>
         <update.changes>
+            §617-06-28 §cfix: 修复T端不兼容的问题;
             §617-03-09 §cfix: 修复行更新错误;
             §617-03-09 §afeat: 添加记分板更新事件
         </update.changes>
