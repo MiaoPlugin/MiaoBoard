@@ -29,19 +29,21 @@ public class SidebarBoard extends Board {
 
     @Override
     public void update(final Player player) {
-        final SiderbarBoardPage boardPage = this.getBoardPage(player);
-        if (boardPage == null) { return; }
-        TitleUpdateEvent te = new TitleUpdateEvent(player);
-        Bukkit.getPluginManager().callEvent(te);
-        String title = te.getTitle();
-        if (title == null) {
-            player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
-            return;
-        }
-        boardPage.setTitle(title);
-        BodyUpdateEvent be = new BodyUpdateEvent(player);
-        Bukkit.getPluginManager().callEvent(be);
-        boardPage.setBody(be.getBody());
-        player.setScoreboard(boardPage.getBoard());
+        Bukkit.getScheduler().runTaskAsynchronously(getPlugin(), () -> {
+            final SiderbarBoardPage boardPage = this.getBoardPage(player);
+            if (boardPage == null) { return; }
+            TitleUpdateEvent te = new TitleUpdateEvent(player);
+            Bukkit.getPluginManager().callEvent(te);
+            String title = te.getTitle();
+            if (title == null) {
+                player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+                return;
+            }
+            boardPage.setTitle(title);
+            BodyUpdateEvent be = new BodyUpdateEvent(player);
+            Bukkit.getPluginManager().callEvent(be);
+            boardPage.setBody(be.getBody());
+            player.setScoreboard(boardPage.getBoard());
+        });
     }
 }
