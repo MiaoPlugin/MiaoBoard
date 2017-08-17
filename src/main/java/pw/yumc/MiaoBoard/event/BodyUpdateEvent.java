@@ -16,6 +16,7 @@ public class BodyUpdateEvent extends Event {
     private List<String> body = Collections.emptyList();
 
     public BodyUpdateEvent(Player player) {
+        super(true);
         this.player = player;
     }
 
@@ -42,4 +43,5 @@ public class BodyUpdateEvent extends Event {
     public HandlerList getHandlers() {
         return handlerList;
     }
+
 }

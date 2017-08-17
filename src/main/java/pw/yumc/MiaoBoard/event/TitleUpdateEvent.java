@@ -13,6 +13,7 @@ public class TitleUpdateEvent extends Event {
     private String title;
 
     public TitleUpdateEvent(Player player) {
+        super(true);
         this.player = player;
     }
 
