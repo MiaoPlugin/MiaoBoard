@@ -18,19 +18,19 @@ public class SidebarBoard extends Board {
     }
 
     @Override
-    public SiderbarBoardPage getBoardPage(final Player player) {
-        return (SiderbarBoardPage) super.getBoardPage(player);
+    public SidebarBoardPage getBoardPage(final Player player) {
+        return (SidebarBoardPage) super.getBoardPage(player);
     }
 
     @Override
-    public SiderbarBoardPage newPage() {
-        return new SiderbarBoardPage();
+    public SidebarBoardPage newPage() {
+        return new SidebarBoardPage();
     }
 
     @Override
     public void update(final Player player) {
         Bukkit.getScheduler().runTaskAsynchronously(getPlugin(), () -> {
-            final SiderbarBoardPage boardPage = this.getBoardPage(player);
+            final SidebarBoardPage boardPage = this.getBoardPage(player);
             if (boardPage == null) { return; }
             TitleUpdateEvent te = new TitleUpdateEvent(player);
             Bukkit.getPluginManager().callEvent(te);

@@ -10,7 +10,7 @@ import pw.yumc.YumCore.kit.StrKit;
  * @since 2017/6/6
  */
 
-public class SiderbarBoardPageTest {
+public class SidebarBoardPageTest {
 
     @Test
     public void testSubStr() {
@@ -24,19 +24,16 @@ public class SiderbarBoardPageTest {
     public void substr(String value) {
         System.out.println("变量: " + value);
         String prefix = StrKit.substring(value, 0, 16);
-        System.out.println("前缀: " + prefix); //设置前16个字符
         String suffix = "";
         if (value.length() > 16) {
-            suffix = value.substring(16, value.length());
-            //处理前后的颜色
-            String sufpre = ChatColor.getLastColors(prefix);
-            if (value.charAt(15) == '§') {
-                sufpre = "§";
-            } else if (!suffix.isEmpty() && suffix.charAt(0) == '§') {
-                sufpre = "";
-            }
-            suffix = StrKit.substring(sufpre + suffix, 0, 16);
+            int splitIndex = value.charAt(15) == '§' ? 15 : 16;
+            prefix = StrKit.substring(value, 0, splitIndex);
+            suffix = value.substring(splitIndex, value.length());
+            // 如果过suffix开头不是颜色符号就把prefix颜色转移到suffix
+            if (suffix.charAt(0) != '§') suffix = ChatColor.getLastColors(prefix) + suffix;
+            if (suffix.length() > 16) suffix = suffix.substring(16, suffix.length());
         }
+        System.out.println("前缀: " + prefix); //设置前16个字符
         System.out.println("后缀: " + suffix);
         System.out.println("====================");
     }
