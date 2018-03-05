@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>pw.yumc</groupId>
     <artifactId>MiaoBoard</artifactId>
-    <version>2.4.0</version>
+    <version>2.4.1</version>
     <description>喵式记分板</description>
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -71,15 +71,17 @@
         <url>http://ci.yumc.pw/job/${project.artifactId}/</url>
     </ciManagement>
     <properties>
-        <update.description>§a正式版本 2.4.0</update.description>
+        <update.description>§a正式版本 2.4.1</update.description>
         <update.changes>
+            §618-03-05 §cfix: 修复1.12不兼容的问题;
             §617-10-15 §cfix: 修复颜色字符分割错误;
-            §617-08-15 §cfix: 修复事件未标记为异步的问题;
+            §617-08-15 §cfix: 修复事件未标记为异步的问题
+        </update.changes>
+        <update.changelog>
             §617-06-28 §cfix: 修复T端不兼容的问题;
             §617-03-09 §cfix: 修复行更新错误;
-            §617-03-09 §afeat: 添加记分板更新事件
-        </update.changes>
-        <update.changelog></update.changelog>
+            §617-03-09 §afeat: 添加记分板更新事件;
+        </update.changelog>
         <env.GIT_COMMIT>DEV</env.GIT_COMMIT>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -103,7 +105,7 @@
             <groupId>pw.yumc</groupId>
             <artifactId>YumCore</artifactId>
             <type>jar</type>
-            <version>1.7</version>
+            <version>[1.8.1,)</version>
         </dependency>
     </dependencies>
 </project>

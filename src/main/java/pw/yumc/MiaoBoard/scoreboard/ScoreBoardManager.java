@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import pw.yumc.MiaoBoard.config.MiaoBoardConfig;
@@ -21,10 +22,10 @@ import pw.yumc.YumCore.config.FileConfig;
  * @author 喵♂呜
  */
 public class ScoreBoardManager {
-    public Status cot = new Status();
-    public SidebarBoard sbd = new SidebarBoard(P.instance);
-    public FileConfig config = MiaoBoardConfig.i().getConfig();
-    public List<BoardModel> bms = new LinkedList<>();
+    private Status cot = new Status();
+    private SidebarBoard sbd = new SidebarBoard(P.instance);
+    private FileConfig config = MiaoBoardConfig.i().getConfig();
+    private List<BoardModel> bms = new LinkedList<>();
 
     public ScoreBoardManager() {
         load();
@@ -32,7 +33,7 @@ public class ScoreBoardManager {
 
     public void addTarget(final Player player) {
         if (!MiaoBoardConfig.i().DisableWorld.contains(player.getWorld().getName())) {
-            getSidebarBoard().addTarget(player);
+            Bukkit.getScheduler().runTask(P.instance, () -> getSidebarBoard().addTarget(player));
         }
     }
 
@@ -44,7 +45,7 @@ public class ScoreBoardManager {
         return sbd;
     }
 
-    public void load() {
+    private void load() {
         bms.clear();
         config.getConfigurationSection("Boards").getKeys(false).forEach(bmn -> bms.add(new BoardModel(bmn, config.getConfigurationSection("Boards." + bmn))));
         bms.sort(Comparator.comparing(o -> o.index));
@@ -74,7 +75,7 @@ public class ScoreBoardManager {
             return status;
         }
 
-        public Status set(final boolean status) {
+        Status set(final boolean status) {
             this.status = status;
             return this;
         }
