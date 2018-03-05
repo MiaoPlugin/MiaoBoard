@@ -42,7 +42,6 @@ public class FakePlayer implements OfflinePlayer {
         return false;
     }
 
-    @Override
     public void setBanned(boolean banned) {
 
     }

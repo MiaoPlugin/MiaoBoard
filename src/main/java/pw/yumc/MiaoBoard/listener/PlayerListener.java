@@ -21,13 +21,13 @@ import pw.yumc.YumCore.update.SubscribeTask;
  * @author 喵♂呜
  */
 public class PlayerListener implements Listener {
-    MiaoBoard plugin = P.getPlugin();
-    ScoreBoardManager manager = plugin.getScoreBoardManager();
+    private MiaoBoard plugin = P.getPlugin();
+    private ScoreBoardManager manager = plugin.getScoreBoardManager();
 
     public PlayerListener() {
         Bukkit.getPluginManager().registerEvents(this, plugin);
         new Statistics();
-        new SubscribeTask(true, true);
+        new SubscribeTask(true, SubscribeTask.UpdateType.MAVEN);
     }
 
     @EventHandler
