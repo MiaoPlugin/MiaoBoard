@@ -1,5 +1,9 @@
 package pw.yumc.MiaoBoard.listener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -26,21 +30,24 @@ public class SelfListener implements Listener {
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOW)
     public void onBodyUpdate(BodyUpdateEvent event) {
-        for (BoardModel bmodel : plugin.getScoreBoardManager().getModels()) {
-            if (Checker.$(event.getPlayer(), bmodel)) {
-                event.setBody(Replace.$(event.getPlayer(), bmodel.lines));
+        for (BoardModel model : plugin.getScoreBoardManager().getModels()) {
+            if (Checker.$(event.getPlayer(), model)) {
+                List<String> lines = Replace.$(event.getPlayer(), model.lines);
+                List<String> temp = new ArrayList<>();
+                lines.forEach(s -> temp.addAll(Arrays.asList(s.split("\n"))));
+                event.setBody(temp);
                 break;
             }
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOW)
     public void onTitleUpdate(TitleUpdateEvent event) {
-        for (BoardModel bmodel : plugin.getScoreBoardManager().getModels()) {
-            if (Checker.$(event.getPlayer(), bmodel)) {
-                event.setTitle(Replace.$(event.getPlayer(), bmodel.title));
+        for (BoardModel model : plugin.getScoreBoardManager().getModels()) {
+            if (Checker.$(event.getPlayer(), model)) {
+                event.setTitle(Replace.$(event.getPlayer(), model.title));
                 break;
             }
         }
