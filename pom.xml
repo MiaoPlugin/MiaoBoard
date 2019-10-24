@@ -1,78 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>pw.yumc</groupId>
+
     <artifactId>MiaoBoard</artifactId>
-    <version>2.4.1</version>
+    <version>2.4.2</version>
     <description>喵式记分板</description>
-    <build>
-        <finalName>${project.artifactId}</finalName>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.4.3</version>
-                <configuration>
-                    <createDependencyReducedPom>false</createDependencyReducedPom>
-                    <minimizeJar>true</minimizeJar>
-                    <artifactSet>
-                        <includes>
-                            <include>pw.yumc:YumCore</include>
-                        </includes>
-                    </artifactSet>
-                    <relocations>
-                        <relocation>
-                            <pattern>pw.yumc.YumCore</pattern>
-                            <shadedPattern>${project.groupId}.${project.artifactId}</shadedPattern>
-                        </relocation>
-                    </relocations>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.github.wvengen</groupId>
-                <artifactId>proguard-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>proguard</goal>
-                        </goals>
-                        <configuration>
-                            <options>
-                                <option>-repackageclasses \ʼ.ʽ.ʾ.${project.artifactId}</option>
-                                <option>-keep class ${project.groupId}.${project.artifactId}.${project.artifactId}
-                                </option>
-                            </options>
-                            <libs>
-                                <lib>${java.home}/lib/rt.jar</lib>
-                            </libs>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-    <ciManagement>
-        <system>Jenkins</system>
-        <url>http://ci.yumc.pw/job/${project.artifactId}/</url>
-    </ciManagement>
+
+    <parent>
+        <groupId>pw.yumc</groupId>
+        <artifactId>minecraft-plugin-parent</artifactId>
+        <version>1.0</version>
+    </parent>
+
     <properties>
-        <update.description>§a正式版本 2.4.1</update.description>
+        <update.description>§a正式版本 2.4.2</update.description>
         <update.changes>
+            §619-10-24 §cfix: 调整默认配置的 time.end 为2099年;
             §618-03-05 §cfix: 修复1.12不兼容的问题;
             §617-10-15 §cfix: 修复颜色字符分割错误;
             §617-08-15 §cfix: 修复事件未标记为异步的问题
@@ -83,29 +26,14 @@
             §617-03-09 §afeat: 添加记分板更新事件;
         </update.changelog>
         <env.GIT_COMMIT>DEV</env.GIT_COMMIT>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    <repositories>
-        <repository>
-            <id>yumc-repo</id>
-            <url>http://repo.yumc.pw/content/groups/public/</url>
-        </repository>
-    </repositories>
-    <distributionManagement>
-        <repository>
-            <id>jtb</id>
-            <name>YUMC</name>
-            <url>http://repo.yumc.pw/content/repositories/yumcenter/</url>
-        </repository>
-    </distributionManagement>
-    <dependencies>
-        <dependency>
-            <groupId>pw.yumc</groupId>
-            <artifactId>YumCore</artifactId>
-            <type>jar</type>
-            <version>[1.8.1,)</version>
-        </dependency>
-    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.wvengen</groupId>
+                <artifactId>proguard-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
