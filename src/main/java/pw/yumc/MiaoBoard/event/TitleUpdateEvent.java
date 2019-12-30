@@ -6,7 +6,9 @@ import org.bukkit.event.HandlerList;
 
 /**
  * 记分板标题更新
- * Created by 蒋天蓓 on 2017/3/7 0007.
+ *
+ * @author MiaoWoo
+ * @date 2017/3/7 0007
  */
 public class TitleUpdateEvent extends Event {
     private Player player;

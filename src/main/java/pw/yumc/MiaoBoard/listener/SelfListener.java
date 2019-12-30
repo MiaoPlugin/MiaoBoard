@@ -15,7 +15,9 @@ import pw.yumc.YumCore.text.Replace;
 
 /**
  * 自身记分板监听类
- * Created by 蒋天蓓 on 2017/3/7 0007.
+ *
+ * @author MiaoWoo
+ * @date 2017/3/7 0007
  */
 public class SelfListener implements Listener {
     private MiaoBoard plugin = P.getPlugin();

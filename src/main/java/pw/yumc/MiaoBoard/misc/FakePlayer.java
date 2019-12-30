@@ -13,7 +13,7 @@ import com.google.common.base.Charsets;
  * Created with IntelliJ IDEA
  *
  * @author 喵♂呜
- *         Created on 2017/10/15 23:30.
+ * Created on 2017/10/15 23:30.
  */
 public class FakePlayer implements OfflinePlayer {
     private String name;

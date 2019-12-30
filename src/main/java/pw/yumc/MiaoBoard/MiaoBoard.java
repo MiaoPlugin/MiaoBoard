@@ -18,8 +18,8 @@ import pw.yumc.YumCore.commands.interfaces.Executor;
 /**
  * 喵式记分板主类
  *
+ * @author MiaoWoo
  * @since 2016年6月4日 上午9:08:13
- * @author 喵♂呜
  */
 public class MiaoBoard extends JavaPlugin implements Executor {
     private ScoreBoardManager scoreBoardManager;

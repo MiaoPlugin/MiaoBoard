@@ -17,8 +17,8 @@ import pw.yumc.YumCore.update.SubscribeTask;
 /**
  * 玩家监听
  *
- * @since 2016年6月24日 下午3:29:39
- * @author 喵♂呜
+ * @author MiaoWoo
+ * @date 2016年6月24日 下午3:29:39
  */
 public class PlayerListener implements Listener {
     private MiaoBoard plugin = P.getPlugin();

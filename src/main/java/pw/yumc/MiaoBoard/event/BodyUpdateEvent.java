@@ -9,7 +9,9 @@ import org.bukkit.event.HandlerList;
 
 /**
  * 记分板更新事件
- * Created by 蒋天蓓 on 2017/3/7 0007.
+ *
+ * @author MiaoWoo
+ * @date 2017/3/7 0007
  */
 public class BodyUpdateEvent extends Event {
     private Player player;

@@ -18,8 +18,8 @@ import pw.yumc.YumCore.config.FileConfig;
 /**
  * 记分板管理类
  *
+ * @author MiaoWoo
  * @since 2016年6月24日 下午3:31:31
- * @author 喵♂呜
  */
 public class ScoreBoardManager {
     private Status cot = new Status();
@@ -47,7 +47,9 @@ public class ScoreBoardManager {
 
     private void load() {
         bms.clear();
-        config.getConfigurationSection("Boards").getKeys(false).forEach(bmn -> bms.add(new BoardModel(bmn, config.getConfigurationSection("Boards." + bmn))));
+        config.getConfigurationSection("Boards")
+                .getKeys(false)
+                .forEach(bmn -> bms.add(new BoardModel(bmn, config.getConfigurationSection("Boards." + bmn))));
         bms.sort(Comparator.comparing(o -> o.index));
     }
 
@@ -67,7 +69,7 @@ public class ScoreBoardManager {
         C.Player.getOnlinePlayers().forEach(this::addTarget);
     }
 
-    private class Status implements Condition {
+    private static class Status implements Condition {
         private boolean status = true;
 
         @Override
@@ -75,7 +77,7 @@ public class ScoreBoardManager {
             return status;
         }
 
-        Status set(final boolean status) {
+        Status set(boolean status) {
             this.status = status;
             return this;
         }

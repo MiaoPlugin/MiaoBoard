@@ -8,9 +8,8 @@ import pw.yumc.MiaoBoard.event.BodyUpdateEvent;
 import pw.yumc.MiaoBoard.event.TitleUpdateEvent;
 
 /**
- *
- * @since 2016年7月4日 下午4:40:21
  * @author 尘曲
+ * @since 2016年7月4日 下午4:40:21
  */
 public class SidebarBoard extends Board {
     public SidebarBoard(final Plugin plugin) {

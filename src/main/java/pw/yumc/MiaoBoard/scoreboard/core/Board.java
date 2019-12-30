@@ -8,11 +8,11 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 /**
- *
- * @since 2016年7月4日 下午4:40:21
  * @author 尘曲
+ * @since 2016年7月4日 下午4:40:21
  */
 public abstract class Board implements Iterable<Player> {
 
@@ -69,6 +69,7 @@ public abstract class Board implements Iterable<Player> {
         return this.targets.containsKey(player);
     }
 
+    @NotNull
     @Override
     public Iterator<Player> iterator() {
         return this.targets.keySet().iterator();

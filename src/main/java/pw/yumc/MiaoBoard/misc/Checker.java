@@ -7,6 +7,9 @@ import org.bukkit.entity.Player;
 
 import pw.yumc.MiaoBoard.model.BoardModel;
 
+/**
+ * @author MiaoWoo
+ */
 public class Checker {
     public static List<String> offList = new ArrayList<>();
 

@@ -4,9 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.Scoreboard;
 
 /**
- *
- * @since 2016年7月4日 下午4:40:21
  * @author 尘曲
+ * @since 2016年7月4日 下午4:40:21
  */
 public abstract class BoardPage {
 

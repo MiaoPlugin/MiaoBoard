@@ -15,12 +15,12 @@ import pw.yumc.MiaoBoard.misc.FakePlayer;
 import pw.yumc.YumCore.kit.StrKit;
 
 /**
- *
- * @since 2016年7月4日 下午4:40:21
  * @author 尘曲
+ * @since 2016年7月4日 下午4:40:21
  */
 public class SidebarBoardPage extends BoardPage {
     private static boolean newVer = true;
+
     static {
         try {
             Team.class.getDeclaredMethod("addEntry", String.class);
@@ -29,19 +29,21 @@ public class SidebarBoardPage extends BoardPage {
         }
     }
 
-    private static final List<ChatColor> colors = Arrays.asList(ChatColor.values()); //所有颜色
+    private static final List<ChatColor> COLORS = Arrays.asList(ChatColor.values());
+    private static final int BOARD_LINE_MAX_CHARS = 16;
+    private static final int BOARD_LINE_MAX_CHARS_SUB1 = BOARD_LINE_MAX_CHARS - 1;
     private final Objective objective;
-    private final List<BoardLine> boardLines = new ArrayList<>();// "行"
-    private int maxLine;//用于标注最大行数
+    private final List<BoardLine> boardLines = new ArrayList<>();
+    private int maxLine;
 
     public SidebarBoardPage() {
         super();
         objective = getBoard().registerNewObjective("default", "dummy");
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        for (int i = 0; i < colors.size(); i++) { //循环所有的颜色
-            final String name = colors.get(i) + "" + ChatColor.RESET;
-            final Team team = getBoard().registerNewTeam("MiaoboardLine" + i); //为每个颜色注册一个队伍
-            boardLines.add(new BoardLine(name, team)); //将"行"添加至列表
+        for (int i = 0; i < COLORS.size(); i++) {
+            final String name = COLORS.get(i) + "" + ChatColor.RESET;
+            final Team team = getBoard().registerNewTeam("MiaoboardLine" + i);
+            boardLines.add(new BoardLine(name, team));
         }
     }
 
@@ -54,22 +56,26 @@ public class SidebarBoardPage extends BoardPage {
     }
 
     public void setValue(int line, String value) {
-        final BoardLine boardLine = getBoardLine(line); //得到我们的"行"
-        Validate.notNull(boardLine, "Unable to find BoardLine with index of " + line + "."); //确认是否存在
-        objective.getScore(boardLine.getName()).setScore(line); //设置"行"
+        final BoardLine boardLine = getBoardLine(line);
+        Validate.notNull(boardLine, "Unable to find BoardLine with index of " + line + ".");
+        objective.getScore(boardLine.getName()).setScore(line);
         //分割字符串为前16个和后16个
         String prefix = value;
         String suffix = "";
-        if (value.length() > 16) {
-            int splitIndex = value.charAt(15) == '§' ? 15 : 16;
+        if (value.length() > BOARD_LINE_MAX_CHARS) {
+            int splitIndex = value.charAt(BOARD_LINE_MAX_CHARS_SUB1) == ChatColor.COLOR_CHAR ? BOARD_LINE_MAX_CHARS_SUB1 : BOARD_LINE_MAX_CHARS;
             prefix = StrKit.substring(value, 0, splitIndex);
-            suffix = value.substring(splitIndex, value.length());
+            suffix = value.substring(splitIndex);
             // 如果过suffix开头不是颜色符号就把prefix颜色转移到suffix
-            if (suffix.charAt(0) != '§') suffix = ChatColor.getLastColors(prefix) + suffix;
-            if (suffix.length() > 16) suffix = suffix.substring(16, suffix.length());
+            if (suffix.charAt(0) != ChatColor.COLOR_CHAR) {
+                suffix = ChatColor.getLastColors(prefix) + suffix;
+            }
+            if (suffix.length() > BOARD_LINE_MAX_CHARS) {
+                suffix = StrKit.substring(suffix, 0, BOARD_LINE_MAX_CHARS);
+            }
         }
-        boardLine.getTeam().setPrefix(prefix); //设置前16个字符
-        boardLine.getTeam().setSuffix(suffix); //设置后16个字符
+        boardLine.getTeam().setPrefix(prefix);
+        boardLine.getTeam().setSuffix(suffix);
         maxLine = line + 1;
     }
 
@@ -85,8 +91,8 @@ public class SidebarBoardPage extends BoardPage {
 
     public void removeLine(int line) {
         final BoardLine boardLine = getBoardLine(line);
-        Validate.notNull(boardLine, "Unable to find BoardLine with index of " + line + "."); //确认是否存在
-        getBoard().resetScores(boardLine.getName()); //删除这个"行"
+        Validate.notNull(boardLine, "Unable to find BoardLine with index of " + line + ".");
+        getBoard().resetScores(boardLine.getName());
     }
 
     private BoardLine getBoardLine(int line) {
@@ -100,7 +106,7 @@ public class SidebarBoardPage extends BoardPage {
         clear(newContents.size());
     }
 
-    class BoardLine {
+    static class BoardLine {
         private String name;
         private Team team;
         private OfflinePlayer player;
@@ -127,6 +133,5 @@ public class SidebarBoardPage extends BoardPage {
         public Team getTeam() {
             return team;
         }
-
     }
 }

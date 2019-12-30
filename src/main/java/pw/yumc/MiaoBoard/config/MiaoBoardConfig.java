@@ -8,8 +8,8 @@ import pw.yumc.YumCore.config.inject.InjectConfig;
 /**
  * 记分板配置文件类
  *
+ * @author MiaoWoo
  * @since 2016年7月21日 下午5:21:13
- * @author 喵♂呜
  */
 public class MiaoBoardConfig extends InjectConfig {
     public transient static MiaoBoardConfig instance = new MiaoBoardConfig();

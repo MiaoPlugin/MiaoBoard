@@ -12,8 +12,8 @@ import pw.yumc.YumCore.config.inject.InjectConfigurationSection;
 /**
  * 记分板数据模型类
  *
+ * @author MiaoWoo
  * @since 2016年7月21日 下午6:58:58
- * @author 喵♂呜
  */
 public class BoardModel extends InjectConfigurationSection {
     public transient String name;
@@ -32,7 +32,9 @@ public class BoardModel extends InjectConfigurationSection {
      * 自动载入配置
      *
      * @param name
+     *         记分板名称
      * @param config
+     *         记分板配置
      */
     public BoardModel(String name, final ConfigurationSection config) {
         super(config);
