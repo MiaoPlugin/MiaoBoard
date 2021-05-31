@@ -1,24 +1,26 @@
 package pw.yumc.MiaoBoard.scoreboard.core;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Team;
-
 import pw.yumc.MiaoBoard.misc.FakePlayer;
 import pw.yumc.YumCore.kit.StrKit;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author 尘曲
  * @since 2016年7月4日 下午4:40:21
  */
 public class SidebarBoardPage extends BoardPage {
+    private static final List<ChatColor> COLORS = Arrays.asList(ChatColor.values());
+    private static final int BOARD_LINE_MAX_CHARS = 16;
+    private static final int BOARD_LINE_MAX_CHARS_SUB1 = BOARD_LINE_MAX_CHARS - 1;
     private static boolean newVer = true;
 
     static {
@@ -29,12 +31,9 @@ public class SidebarBoardPage extends BoardPage {
         }
     }
 
-    private static final List<ChatColor> COLORS = Arrays.asList(ChatColor.values());
-    private static final int BOARD_LINE_MAX_CHARS = 16;
-    private static final int BOARD_LINE_MAX_CHARS_SUB1 = BOARD_LINE_MAX_CHARS - 1;
     private final Objective objective;
     private final List<BoardLine> boardLines = new ArrayList<>();
-    private int maxLine;
+    private int currentSize;
 
     public SidebarBoardPage() {
         super();
@@ -76,17 +75,16 @@ public class SidebarBoardPage extends BoardPage {
         }
         boardLine.getTeam().setPrefix(prefix);
         boardLine.getTeam().setSuffix(suffix);
-        maxLine = line + 1;
     }
 
     //all 5  [0 1 2 3 4] maxLine = 5  all 3 [0 1 2] maxLine=4
     public void clear(int size) {
-        if (maxLine > size) {
-            for (int i = size; i < maxLine; i++) {
-                removeLine(i);
+        if (size < currentSize) {
+            for (int i = size; i < currentSize; i++) {
+                removeLine(i + 1);
             }
-            maxLine = size;
         }
+        currentSize = size;
     }
 
     public void removeLine(int line) {
