@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>MiaoBoard</artifactId>
-    <version>2.5.1</version>
+    <version>2.6.0</version>
     <description>喵式记分板</description>
 
     <parent>
@@ -13,8 +13,10 @@
     </parent>
 
     <properties>
-        <update.description>§a正式版本 2.5.1</update.description>
+        <update.description>§a正式版本 兼容 1.19 版本</update.description>
         <update.changes>
+            §622-06-25 §afeat: 兼容 1.19 版本;
+            §621-06-23 §afeat: 解除32个字符限制(1.13+);
             §621-05-31 §cfix: 修复记分板切换异常问题;
             §619-12-30 §cfix: 修复字符截取错误导致的报错;
             §619-10-24 §cfix: 调整默认配置的 time.end 为2099年;

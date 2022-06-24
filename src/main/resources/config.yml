@@ -20,7 +20,7 @@ Boards:
     title: '玩家信息'
     #记分板权限
     permission: mb.default
-    #记分板内容(不得超过38个字符 包括颜色字符 超过部分自动截取)
+    #记分板内容(不得超过32个字符(1.13+限制为128字符) 包括颜色字符 超过部分自动截取)
     lines:
     - '&6名 称: &a%player_displayname%'
     - '&6世 界: &b%player_world%'
@@ -38,7 +38,7 @@ Boards:
     title: '服务器信息'
     #记分板权限
     permission: mb.reload
-    #记分板内容(不得超过38个字符 包括颜色字符 超过部分自动截取)
+    #记分板内容(不得超过32个字符(1.13+限制为128字符) 包括颜色字符 超过部分自动截取)
     lines:
     - '&6名 称: &a%plugin_name%'
     - '&6版 本: &b%plugin_version%'

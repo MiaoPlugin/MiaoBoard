@@ -2,11 +2,13 @@ package pw.yumc.MiaoBoard.scoreboard.core;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Team;
 import pw.yumc.MiaoBoard.misc.FakePlayer;
+import pw.yumc.YumCore.bukkit.Log;
 import pw.yumc.YumCore.kit.StrKit;
 
 import java.util.ArrayList;
@@ -19,8 +21,8 @@ import java.util.List;
  */
 public class SidebarBoardPage extends BoardPage {
     private static final List<ChatColor> COLORS = Arrays.asList(ChatColor.values());
-    private static final int BOARD_LINE_MAX_CHARS = 16;
-    private static final int BOARD_LINE_MAX_CHARS_SUB1 = BOARD_LINE_MAX_CHARS - 1;
+    private static int BOARD_LINE_MAX_CHARS = 16;
+    private static int BOARD_LINE_MAX_CHARS_SUB1 = BOARD_LINE_MAX_CHARS - 1;
     private static boolean newVer = true;
 
     static {
@@ -28,6 +30,13 @@ public class SidebarBoardPage extends BoardPage {
             Team.class.getDeclaredMethod("addEntry", String.class);
         } catch (NoSuchMethodException e) {
             newVer = false;
+        }
+        try {
+            Material.valueOf("KELP");
+            BOARD_LINE_MAX_CHARS = 64;
+            BOARD_LINE_MAX_CHARS_SUB1 = BOARD_LINE_MAX_CHARS - 1;
+            Log.console("§a当前服务端支持新版记分板 长度限制为128个字符...");
+        } catch (IllegalArgumentException e) {
         }
     }
 

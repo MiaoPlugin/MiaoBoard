@@ -3,7 +3,6 @@ package pw.yumc.MiaoBoard;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import pw.yumc.MiaoBoard.listener.PlayerListener;
 import pw.yumc.MiaoBoard.listener.SelfListener;
 import pw.yumc.MiaoBoard.misc.Checker;
